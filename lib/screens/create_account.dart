@@ -1,16 +1,17 @@
-import 'package:app/screens/create_account.dart';
-import 'package:app/screens/main_screen.dart';
+import 'package:app/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen
+class CreateAccount
     extends StatelessWidget {
-  const LoginScreen({super.key});
+  const CreateAccount({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text('Login')),
+        title: const Text(
+            "Create Account"),
+      ),
       body: Center(
         child: LayoutBuilder(
           builder:
@@ -22,6 +23,7 @@ class LoginScreen
                     : constraints
                             .maxWidth *
                         0.85;
+
             return SizedBox(
               width: boxWidth,
               child: Column(
@@ -55,37 +57,19 @@ class LoginScreen
                     ),
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 30,
                   ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child:
-                            ElevatedButton(
-                                onPressed:
-                                    () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(builder: (context) => const MainScreen()));
-                                },
-                                child: const Text(
-                                    "Login")),
-                      ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      Expanded(
-                          child:
-                              ElevatedButton(
-                                  onPressed:
-                                      () {
-                                    Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) => const CreateAccount()));
-                                  },
-                                  child:
-                                      const Text("Create Account")))
-                    ],
-                  )
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder:
+                                    (context) =>
+                                        const LoginScreen()));
+                      },
+                      child: const Text(
+                          "Create Account")),
                 ],
               ),
             );
