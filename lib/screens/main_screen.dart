@@ -17,7 +17,7 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> _tabs = [
     Center(child: InboxTab()),
     const Center(child: ContactTab()),
-    Center(child: NotificationTab()),
+    const Center(child: NotificationTab()),
     const Center(child: SettingTab())
   ];
 
