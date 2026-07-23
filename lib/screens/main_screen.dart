@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
 import 'package:app/tabs/inbox_tab.dart';
+import 'package:app/tabs/contact_tab.dart';
 import 'package:app/tabs/notification_tab.dart';
+import 'package:app/tabs/setting_tab.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -14,9 +16,9 @@ class _MainScreenState extends State<MainScreen> {
   //Các tabs
   final List<Widget> _tabs = [
     Center(child: InboxTab()),
-    Center(child: Text("Contact Tab")),
+    const Center(child: ContactTab()),
     Center(child: NotificationTab()),
-    Center(child: Text("Settings Tab"))
+    const Center(child: SettingTab())
   ];
 
   @override

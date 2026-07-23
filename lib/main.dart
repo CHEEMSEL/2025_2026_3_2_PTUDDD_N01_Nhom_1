@@ -1,8 +1,5 @@
-import 'package:app/screens/about_screen.dart';
-import 'package:app/screens/sub_setting_screen.dart';
 import 'package:app/screens/login_screen.dart';
 import 'package:flutter/material.dart';
-import 'screens/main_screen.dart';
 
 void main() {
   runApp(const MainApp());
