@@ -43,9 +43,9 @@ class _ContactTabState extends State<ContactTab> {
               style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 hintText: 'Tìm kiếm liên hệ...',
-                prefixIcon: const Icon(Icons.search, color: Colors.grey),
+                prefixIcon: Icon(Icons.search, color: Colors.grey.shade900),
                 filled: true,
-                fillColor: Colors.grey.shade900,
+                fillColor: Colors.grey.shade600,
                 contentPadding: const EdgeInsets.symmetric(vertical: 0),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
