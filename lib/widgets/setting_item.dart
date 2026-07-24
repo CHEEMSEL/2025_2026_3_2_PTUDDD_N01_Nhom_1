@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SettingItem extends StatelessWidget {
+class SettingItem
+    extends StatelessWidget {
   final IconData icon;
   final String title;
   final VoidCallback onTap;
@@ -14,55 +15,36 @@ class SettingItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: onTap,
-      style: TextButton.styleFrom(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+    return Card(
+      margin:
+          const EdgeInsets.symmetric(
+              horizontal: 10,
+              vertical: 4),
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+        borderRadius:
+            BorderRadius.circular(10),
       ),
-      child: Row(
-        children: [
-          Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              color: Colors.blue.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Icon(
-              icon,
-              color: Colors.blue,
-            ),
+      child: ListTile(
+        leading: CircleAvatar(
+          backgroundColor: Colors.blue
+              .withValues(alpha: 0.1),
+          child: Icon(icon,
+              color: Colors.blue),
+        ),
+        title: Text(
+          title,
+          style: const TextStyle(
+            fontWeight: FontWeight.w600,
+            color: Colors.black87,
           ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                const Text(
-                  "Chạm để xem và thay đổi tùy chọn.",
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+        ),
+        trailing: const Icon(
+          Icons.arrow_forward_ios,
+          size: 16,
+          color: Colors.grey,
+        ),
+        onTap: onTap,
       ),
     );
   }

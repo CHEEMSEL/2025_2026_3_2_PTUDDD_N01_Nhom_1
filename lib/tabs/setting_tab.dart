@@ -17,35 +17,16 @@ class SettingTab
       appBar: AppBar(
         title: const Text('Settings'),
       ),
-      body: Center(
-        child: LayoutBuilder(
-          builder:
-              (context, constraints) {
-            double boxWidth =
-                constraints.maxWidth >
-                        500
-                    ? 400
-                    : constraints
-                            .maxWidth *
-                        0.85;
-
-            return SizedBox(
-              width: boxWidth,
-              child: ListView(
-                shrinkWrap: true,
-                children: const [
-                  AccountSetting(),
-                  NotificationSetting(),
-                  SecuritySetting(),
-                  ThemeSetting(),
-                  StorageSetting(),
-                  BatterySetting(),
-                  AboutSetting(),
-                ],
-              ),
-            );
-          },
-        ),
+      body: ListView(
+        children: const [
+          AccountSetting(),
+          NotificationSetting(),
+          SecuritySetting(),
+          ThemeSetting(),
+          StorageSetting(),
+          BatterySetting(),
+          AboutSetting(),
+        ],
       ),
     );
   }

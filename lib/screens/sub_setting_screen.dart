@@ -17,10 +17,24 @@ class SubSettingScreen extends StatelessWidget {
         title: Text(title),
       ),
       body: Center(
-        child: Icon(
-          iconData,
-          size: 150,
-          color: Colors.blue,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CircleAvatar(
+              radius: 50,
+              backgroundColor: Colors.blue.withValues(alpha: 0.1),
+              child: Icon(iconData, size: 50, color: Colors.blue),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                color: Colors.black87,
+              ),
+            ),
+          ],
         ),
       ),
     );
