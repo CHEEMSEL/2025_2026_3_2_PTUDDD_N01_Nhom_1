@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:app/screens/sub_setting_screen.dart';
 import 'package:app/widgets/setting_item.dart';
+import 'package:app/widgets/sub-settings/sub-theme_setting.dart';
 
 class ThemeSetting
     extends StatelessWidget {
@@ -20,6 +21,7 @@ class ThemeSetting
               iconData:
                   Icons.color_lens,
               title: "Giao diện",
+              child: SubThemeSetting(),
             ),
           ),
         );

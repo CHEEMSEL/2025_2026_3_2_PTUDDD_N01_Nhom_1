@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 class SubSettingScreen extends StatelessWidget {
-  final IconData iconData;
+  final IconData? iconData;
   final String title;
+  final Widget? child;
 
   const SubSettingScreen({
     super.key,
-    required this.iconData,
+    this.iconData,
     required this.title,
+    this.child,
   });
 
   @override
@@ -16,15 +18,16 @@ class SubSettingScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(title),
       ),
-      body: Center(
+      body: child ?? Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            CircleAvatar(
-              radius: 50,
-              backgroundColor: Colors.blue.withValues(alpha: 0.1),
-              child: Icon(iconData, size: 50, color: Colors.blue),
-            ),
+            if (iconData != null)
+              CircleAvatar(
+                radius: 50,
+                backgroundColor: Colors.blue.withValues(alpha: 0.1),
+                child: Icon(iconData, size: 50, color: Colors.blue),
+              ),
             const SizedBox(height: 16),
             Text(
               title,

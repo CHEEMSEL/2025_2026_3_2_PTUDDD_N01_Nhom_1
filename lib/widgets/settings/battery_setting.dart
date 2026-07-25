@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:app/screens/sub_setting_screen.dart';
 import 'package:app/widgets/setting_item.dart';
+import 'package:app/widgets/sub-settings/sub-battery_setting.dart';
 
 class BatterySetting
     extends StatelessWidget {
@@ -20,6 +21,8 @@ class BatterySetting
               iconData:
                   Icons.battery_saver,
               title: "Tiết kiệm pin",
+              child:
+                  SubBatterySetting(),
             ),
           ),
         );

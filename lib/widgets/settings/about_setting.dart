@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:app/screens/sub_setting_screen.dart';
 import 'package:app/widgets/setting_item.dart';
+import 'package:app/widgets/sub-settings/sub-about_setiting.dart';
 
 class AboutSetting
     extends StatelessWidget {
@@ -20,6 +21,7 @@ class AboutSetting
               iconData: Icons.info,
               title:
                   "Thông tin ứng dụng",
+              child: SubAboutSetting(),
             ),
           ),
         );

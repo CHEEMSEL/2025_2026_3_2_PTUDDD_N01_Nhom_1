@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:app/screens/sub_setting_screen.dart';
 import 'package:app/widgets/setting_item.dart';
+import 'package:app/widgets/sub-settings/sub-security_setting.dart';
 
 class SecuritySetting
     extends StatelessWidget {
@@ -19,6 +20,7 @@ class SecuritySetting
                 const SubSettingScreen(
               iconData: Icons.security,
               title: "Bảo mật",
+              child: SubSecuritySetting(),
             ),
           ),
         );

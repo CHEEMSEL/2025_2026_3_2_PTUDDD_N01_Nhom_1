@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:app/screens/sub_setting_screen.dart';
 import 'package:app/widgets/setting_item.dart';
+import 'package:app/widgets/sub-settings/sub-storage_setting.dart';
 
 class StorageSetting
     extends StatelessWidget {
@@ -19,6 +20,8 @@ class StorageSetting
                 const SubSettingScreen(
               iconData: Icons.storage,
               title: "Lưu trữ",
+              child:
+                  SubStorageSetting(),
             ),
           ),
         );
