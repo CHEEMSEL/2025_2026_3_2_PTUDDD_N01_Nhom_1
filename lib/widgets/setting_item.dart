@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SettingItem
-    extends StatelessWidget {
+class SettingItem extends StatelessWidget {
   final IconData icon;
   final String title;
   final VoidCallback onTap;
@@ -16,21 +15,15 @@ class SettingItem
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin:
-          const EdgeInsets.symmetric(
-              horizontal: 10,
-              vertical: 4),
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       elevation: 2,
       shape: RoundedRectangleBorder(
-        borderRadius:
-            BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(10),
       ),
       child: ListTile(
         leading: CircleAvatar(
-          backgroundColor: Colors.blue
-              .withValues(alpha: 0.1),
-          child: Icon(icon,
-              color: Colors.blue),
+          backgroundColor: Colors.blue.withOpacity(0.1),
+          child: Icon(icon, color: Colors.blue),
         ),
         title: Text(
           title,

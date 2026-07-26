@@ -32,7 +32,8 @@ class _SubSecuritySettingState extends State<SubSecuritySetting> {
           ),
           ..._timeoutOptions.map(
             (minutes) => ListTile(
-              title: Text(minutes < 60 ? "$minutes phút" : "${minutes ~/ 60} giờ"),
+              title:
+                  Text(minutes < 60 ? "$minutes phút" : "${minutes ~/ 60} giờ"),
               trailing: _lockTimeoutMinutes == minutes
                   ? const Icon(Icons.check, color: Colors.blue)
                   : null,
@@ -58,7 +59,8 @@ class _SubSecuritySettingState extends State<SubSecuritySetting> {
             _buildTile(
               icon: Icons.lock_outline,
               title: "Đổi mật khẩu",
-              trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
+              trailing: const Icon(Icons.arrow_forward_ios,
+                  size: 16, color: Colors.grey),
               onTap: () {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text("Tính năng đang phát triển")),
@@ -98,7 +100,8 @@ class _SubSecuritySettingState extends State<SubSecuritySetting> {
                 icon: Icons.timer_outlined,
                 title: "Tự động khóa sau",
                 subtitle: "$_lockTimeoutMinutes phút",
-                trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
+                trailing: const Icon(Icons.arrow_forward_ios,
+                    size: 16, color: Colors.grey),
                 onTap: _showTimeoutPicker,
               ),
           ],
@@ -135,11 +138,13 @@ class _SubSecuritySettingState extends State<SubSecuritySetting> {
   }) {
     return ListTile(
       leading: CircleAvatar(
-        backgroundColor: Colors.blue.withValues(alpha: 0.1),
+        backgroundColor: Colors.blue.withOpacity(0.1),
         child: Icon(icon, color: Colors.blue),
       ),
       title: Text(title, style: const TextStyle(fontWeight: FontWeight.w500)),
-      subtitle: subtitle != null ? Text(subtitle, style: const TextStyle(color: Colors.grey)) : null,
+      subtitle: subtitle != null
+          ? Text(subtitle, style: const TextStyle(color: Colors.grey))
+          : null,
       trailing: trailing,
       onTap: onTap,
     );

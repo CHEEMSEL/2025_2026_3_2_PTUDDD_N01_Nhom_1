@@ -63,6 +63,11 @@ class InboxListTile extends StatelessWidget {
     return ListView.builder(
       itemCount: inbox.length,
       itemBuilder: (context, index) {
+        final item = inbox[index];
+        final String user = item["user"] ?? "";
+        final String message = item["message"] ?? "";
+        final String state = item["state"] ?? "";
+        final bool isUnread = state == "Unread";
         return Card(
           margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
           elevation: 2,
@@ -71,34 +76,24 @@ class InboxListTile extends StatelessWidget {
           ),
           child: ListTile(
             leading: CircleAvatar(
-              backgroundColor: inbox[index]["state"] == "Unread"
-                  ? Colors.blue
-                  : Colors.grey[400],
+              backgroundColor: isUnread ? Colors.blue : Colors.grey[400],
               child: Text(
-                inbox[index]["user"]![0],
+                user.isNotEmpty ? user[0] : "?",
                 style: const TextStyle(color: Colors.black),
               ),
             ),
             title: Text(
-              inbox[index]["user"]!,
+              user,
               style: TextStyle(
-                color: inbox[index]["state"] == "Unread"
-                    ? Colors.black
-                    : Colors.grey[400],
-                fontWeight: inbox[index]["state"] == "Unread"
-                    ? FontWeight.w600
-                    : FontWeight.normal,
+                color: isUnread ? Colors.black : Colors.grey[400],
+                fontWeight: isUnread ? FontWeight.w600 : FontWeight.normal,
               ),
             ),
             subtitle: Text(
-              inbox[index]["message"]!,
+              message,
               style: TextStyle(
-                color: inbox[index]["state"] == "Unread"
-                    ? Colors.black
-                    : Colors.grey[400],
-                fontWeight: inbox[index]["state"] == "Unread"
-                    ? FontWeight.w600
-                    : FontWeight.normal,
+                color: isUnread ? Colors.black : Colors.grey[400],
+                fontWeight: isUnread ? FontWeight.w600 : FontWeight.normal,
               ),
             ),
             trailing: Column(
@@ -106,22 +101,13 @@ class InboxListTile extends StatelessWidget {
               children: [
                 Text(TimeOfDay.now().format(context)),
                 const SizedBox(height: 7),
-                switch (inbox[index]["state"]) {
-                  "Unread" => const Icon(
-                      Icons.circle,
-                      color: Colors.blue,
-                      size: 15,
-                    ),
-                  "Read" => const Icon(
-                      Icons.task_alt,
-                      color: Colors.grey,
-                      size: 15,
-                    ),
-                  "Sending" => const Icon(
-                      Icons.timer,
-                      color: Colors.orange,
-                      size: 15,
-                    ),
+                switch (state) {
+                  "Unread" =>
+                    const Icon(Icons.circle, color: Colors.blue, size: 15),
+                  "Read" =>
+                    const Icon(Icons.task_alt, color: Colors.grey, size: 15),
+                  "Sending" =>
+                    const Icon(Icons.timer, color: Colors.orange, size: 15),
                   _ => const SizedBox.shrink(),
                 },
               ],
@@ -131,13 +117,10 @@ class InboxListTile extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => InChatScreen(
-                    username: inbox[index]["user"]!,
+                    username: user,
                   ),
                 ),
               );
-            },
-            onLongPress: () {
-              // Handle long press on the list tile
             },
           ),
         );
