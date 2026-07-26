@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:app/langs/language_dict.dart';
 
 class SubNotificationSetting extends StatefulWidget {
   const SubNotificationSetting({super.key});
@@ -23,32 +24,32 @@ class _SubNotificationSettingState extends State<SubNotificationSetting> {
           child: Icon(Icons.notifications, size: 50, color: Colors.white),
         ),
         const SizedBox(height: 16),
-        const Text(
-          "Thông báo",
+        Text(
+          AppTranslations.tr(context, 'notification'),
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 24),
         Card(
           child: Column(
             children: [
               SwitchListTile(
-                title: const Text("Thông báo đẩy"),
-                subtitle: const Text("Nhận thông báo qua ứng dụng"),
+                title: Text(AppTranslations.tr(context, 'push_notification')),
+                subtitle: Text(AppTranslations.tr(context, 'push_notification_desc')),
                 value: _pushEnabled,
                 onChanged: (val) => setState(() => _pushEnabled = val),
               ),
               const Divider(height: 1),
               SwitchListTile(
-                title: const Text("Thông báo email"),
-                subtitle: const Text("Nhận thông báo qua email"),
+                title: Text(AppTranslations.tr(context, 'email_notification')),
+                subtitle: Text(AppTranslations.tr(context, 'email_notification_desc')),
                 value: _emailEnabled,
                 onChanged: (val) => setState(() => _emailEnabled = val),
               ),
               const Divider(height: 1),
               SwitchListTile(
-                title: const Text("Thông báo SMS"),
-                subtitle: const Text("Nhận thông báo qua tin nhắn"),
+                title: Text(AppTranslations.tr(context, 'sms_notification')),
+                subtitle: Text(AppTranslations.tr(context, 'sms_notification_desc')),
                 value: _smsEnabled,
                 onChanged: (val) => setState(() => _smsEnabled = val),
               ),

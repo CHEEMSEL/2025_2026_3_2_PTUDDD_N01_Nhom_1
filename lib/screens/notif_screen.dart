@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:app/langs/language_dict.dart';
 
 class NotifScreen extends StatelessWidget {
   const NotifScreen({super.key});
@@ -7,10 +8,10 @@ class NotifScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Notifications"),
+        title: Text(AppTranslations.tr(context, 'notifications')),
       ),
-      body: const Center(
-        child: Text("No notifications yet."),
+      body: Center(
+        child: Text(AppTranslations.tr(context, 'no_notifications')),
       ),
     );
   }

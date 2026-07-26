@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:app/langs/language_dict.dart';
 
 class SubAccountSetting extends StatelessWidget {
   const SubAccountSetting({super.key});
@@ -7,43 +8,43 @@ class SubAccountSetting extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       padding: const EdgeInsets.all(16),
-      children: const [
-        CircleAvatar(
+      children: [
+        const CircleAvatar(
           radius: 50,
           backgroundColor: Colors.blue,
           child: Icon(Icons.person, size: 50, color: Colors.white),
         ),
-        SizedBox(height: 16),
-        Text(
+        const SizedBox(height: 16),
+        const Text(
           "Nguyễn Văn A",
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
-        Text(
+        const Text(
           "nguyenvana@email.com",
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 16, color: Colors.grey),
         ),
-        SizedBox(height: 24),
+        const SizedBox(height: 24),
         Card(
           child: Column(
             children: [
               ListTile(
-                leading: Icon(Icons.phone),
-                title: Text("Số điện thoại"),
-                trailing: Text("0123 456 789"),
+                leading: const Icon(Icons.phone),
+                title: Text(AppTranslations.tr(context, 'phone')),
+                trailing: const Text("0123 456 789"),
               ),
-              Divider(height: 1),
+              const Divider(height: 1),
               ListTile(
-                leading: Icon(Icons.calendar_today),
-                title: Text("Ngày sinh"),
-                trailing: Text("01/01/2000"),
+                leading: const Icon(Icons.calendar_today),
+                title: Text(AppTranslations.tr(context, 'birthday')),
+                trailing: const Text("01/01/2000"),
               ),
-              Divider(height: 1),
+              const Divider(height: 1),
               ListTile(
-                leading: Icon(Icons.wc),
-                title: Text("Giới tính"),
-                trailing: Text("Nam"),
+                leading: const Icon(Icons.wc),
+                title: Text(AppTranslations.tr(context, 'gender')),
+                trailing: Text(AppTranslations.tr(context, 'male')),
               ),
             ],
           ),

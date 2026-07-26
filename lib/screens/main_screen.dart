@@ -3,6 +3,7 @@ import 'package:app/tabs/inbox_tab.dart';
 import 'package:app/tabs/contact_tab.dart';
 import 'package:app/tabs/notification_tab.dart';
 import 'package:app/tabs/setting_tab.dart';
+import 'package:app/langs/language_dict.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -13,54 +14,51 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int slectedIndex = 0;
-  //Các tabs
-  final List<Widget> _tabs = [
-    Center(child: InboxTab()),
-    const Center(child: ContactTab()),
-    const Center(child: NotificationTab()),
-    const Center(child: SettingTab())
-  ];
 
   @override
   Widget build(BuildContext context) {
+    final tabs = [
+      Center(child: InboxTab()),
+      const Center(child: ContactTab()),
+      const Center(child: NotificationTab()),
+      const Center(child: SettingTab()),
+    ];
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Main Screen"),
+        title: Text(AppTranslations.tr(context, 'main_screen')),
       ),
       body: IndexedStack(
         index: slectedIndex,
-        children: _tabs,
+        children: tabs,
       ),
       bottomNavigationBar: BottomNavigationBar(
-        //Chọn kiểu điều hướng (fixed: hiển thị tất cả các tab, shifting: chỉ hiển thị tab được chọn).
-        //Nếu để shift thì phải đặt màu riêng cho từng item (custom later)
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.grey[800],
         selectedItemColor: Colors.blue,
         unselectedItemColor: Colors.white,
-        // Hàm chọn tab
         currentIndex: slectedIndex,
         onTap: (index) {
           setState(() {
             slectedIndex = index;
           });
         },
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.message),
-            label: 'Messages',
+            icon: const Icon(Icons.message),
+            label: AppTranslations.tr(context, 'messages'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_pin),
-            label: 'Contact',
+            icon: const Icon(Icons.person_pin),
+            label: AppTranslations.tr(context, 'contact'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
-            label: 'Notifications',
+            icon: const Icon(Icons.notifications),
+            label: AppTranslations.tr(context, 'notifications'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
+            icon: const Icon(Icons.settings),
+            label: AppTranslations.tr(context, 'settings'),
           ),
         ],
       ),

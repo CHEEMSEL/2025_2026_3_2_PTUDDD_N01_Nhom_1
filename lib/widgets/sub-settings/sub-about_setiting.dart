@@ -1,68 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:app/langs/language_dict.dart';
 
-class SubAboutSetting
-    extends StatelessWidget {
+class SubAboutSetting extends StatelessWidget {
   const SubAboutSetting({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ListView(
       padding: const EdgeInsets.all(16),
-      children: const [
-        CircleAvatar(
+      children: [
+        const CircleAvatar(
           radius: 50,
           backgroundColor: Colors.blue,
-          child: Icon(Icons.info,
-              size: 50,
-              color: Colors.white),
+          child: Icon(Icons.info, size: 50, color: Colors.white),
         ),
-        SizedBox(height: 16),
+        const SizedBox(height: 16),
         Text(
-          "Ứng dụng của tôi",
+          AppTranslations.tr(context, 'app_title'),
           textAlign: TextAlign.center,
-          style: TextStyle(
-              fontSize: 22,
-              fontWeight:
-                  FontWeight.bold),
+          style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
-        SizedBox(height: 24),
+        const SizedBox(height: 24),
         Card(
           child: Column(
             children: [
               ListTile(
-                leading: Icon(
-                    Icons.info_outline),
-                title:
-                    Text("Phiên bản"),
-                trailing: Text("1.0.0"),
+                leading: const Icon(Icons.info_outline),
+                title: Text(AppTranslations.tr(context, 'version')),
+                trailing: const Text("1.0.0"),
               ),
-              Divider(height: 1),
+              const Divider(height: 1),
               ListTile(
-                leading:
-                    Icon(Icons.code),
-                title: Text(
-                    "Nhà phát triển"),
-                trailing:
-                    Text("Nhóm 1"),
+                leading: const Icon(Icons.code),
+                title: Text(AppTranslations.tr(context, 'developer')),
+                trailing: Text(AppTranslations.tr(context, 'team1')),
               ),
-              Divider(height: 1),
+              const Divider(height: 1),
               ListTile(
-                leading: Icon(
-                    Icons.description),
-                title: Text("Mô tả"),
-                subtitle: Text(
-                    "Ứng dụng quản lý thông minh"),
+                leading: const Icon(Icons.description),
+                title: Text(AppTranslations.tr(context, 'description')),
+                subtitle: Text(AppTranslations.tr(context, 'app_description')),
               ),
             ],
           ),
         ),
-        SizedBox(height: 16),
+        const SizedBox(height: 16),
         Text(
-          "© 2026 Nhóm 1. Tất cả quyền được bảo lưu.",
+          AppTranslations.tr(context, 'copyright'),
           textAlign: TextAlign.center,
-          style: TextStyle(
-              color: Colors.grey,
-              fontSize: 12),
+          style: const TextStyle(color: Colors.grey, fontSize: 12),
         ),
       ],
     );

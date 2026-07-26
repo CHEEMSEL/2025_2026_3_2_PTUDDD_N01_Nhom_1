@@ -1,5 +1,6 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
 import 'package:app/screens/notif_screen.dart';
+import 'package:app/langs/language_dict.dart';
 
 class NotificationTab extends StatelessWidget {
   const NotificationTab({super.key});
@@ -34,14 +35,12 @@ class NotificationTab extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.grey[500],
-          title: const Text('Notifications'),
+          title: Text(AppTranslations.tr(context, 'notifications')),
           actions: [
             IconButton(
               icon: const Icon(Icons.done_all),
-              tooltip: 'Đánh dấu tất cả là đã đọc',
-              onPressed: () {
-                //LAter..
-              },
+              tooltip: AppTranslations.tr(context, 'mark_all_read'),
+              onPressed: () {},
             ),
           ],
         ),
@@ -72,7 +71,7 @@ class NotificationList extends StatelessWidget {
           subtitle: Text(
             items['subtitle'],
             softWrap: true,
-            maxLines: 2, // optional
+            maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(color: items['read'] ? Colors.grey : Colors.black),
           ),

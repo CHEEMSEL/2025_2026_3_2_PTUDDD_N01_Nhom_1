@@ -1,6 +1,7 @@
 import 'package:app/screens/create_account.dart';
 import 'package:app/screens/main_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:app/langs/language_dict.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -8,7 +9,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Login')),
+      appBar: AppBar(title: Text(AppTranslations.tr(context, 'login'))),
       body: Center(
         child: LayoutBuilder(
           builder: (context, constraints) {
@@ -19,25 +20,23 @@ class LoginScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const TextField(
+                  TextField(
                     decoration: InputDecoration(
-                      labelText: "Gmail",
-                      hintText: "Input Gmail Here",
-                      border: OutlineInputBorder(),
+                      labelText: AppTranslations.tr(context, 'gmail'),
+                      hintText: AppTranslations.tr(context, 'input_gmail'),
+                      border: const OutlineInputBorder(),
                     ),
                   ),
                   const SizedBox(height: 20),
-                  const TextField(
+                  TextField(
                     obscureText: true,
                     decoration: InputDecoration(
-                      labelText: "Password",
-                      hintText: "Input Password Here",
-                      border: OutlineInputBorder(),
+                      labelText: AppTranslations.tr(context, 'password'),
+                      hintText: AppTranslations.tr(context, 'input_password'),
+                      border: const OutlineInputBorder(),
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  const SizedBox(height: 20),
                   Row(
                     children: [
                       Expanded(
@@ -49,11 +48,9 @@ class LoginScreen extends StatelessWidget {
                                       builder: (context) =>
                                           const MainScreen()));
                             },
-                            child: const Text("Login")),
+                            child: Text(AppTranslations.tr(context, 'login'))),
                       ),
-                      const SizedBox(
-                        width: 20,
-                      ),
+                      const SizedBox(width: 20),
                       Expanded(
                           child: ElevatedButton(
                               onPressed: () {
@@ -63,7 +60,7 @@ class LoginScreen extends StatelessWidget {
                                         builder: (context) =>
                                             const CreateAccount()));
                               },
-                              child: const Text("Create Account")))
+                              child: Text(AppTranslations.tr(context, 'create_account'))))
                     ],
                   )
                 ],

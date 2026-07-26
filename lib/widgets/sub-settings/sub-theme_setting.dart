@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:app/langs/language_controller.dart';
+import 'package:app/langs/language_dict.dart';
 
 class SubThemeSetting extends StatefulWidget {
   const SubThemeSetting({super.key});
@@ -9,8 +12,8 @@ class SubThemeSetting extends StatefulWidget {
 
 class _SubThemeSettingState extends State<SubThemeSetting> {
   String selectedTheme = 'light';
-  String selectedLanguage = 'vi';
   Color chatAccentColor = Colors.blue;
+
   final List<Color> themeColors = [
     Colors.blue,
     Colors.purple,
@@ -19,43 +22,49 @@ class _SubThemeSettingState extends State<SubThemeSetting> {
     Colors.pink,
     Colors.green,
   ];
+
   final List<Map<String, String>> supportedLanguages = [
     {'code': 'vi', 'name': 'Tiếng Việt', 'flag': '🇻🇳'},
     {'code': 'en', 'name': 'English', 'flag': '🇺🇸'},
     {'code': 'ja', 'name': '日本語', 'flag': '🇯🇵'},
     {'code': 'ko', 'name': '한국어', 'flag': '🇰🇷'},
     {'code': 'zh', 'name': '中文', 'flag': '🇨🇳'},
-    {'code': 'ko', 'name': '한국어', 'flag': '🇰🇷'},
   ];
+
   @override
   Widget build(BuildContext context) {
+    final langProvider = Provider.of<LanguageProvider>(context);
+    final langCode = langProvider.currentLangCode;
+
+    final currentLangMap = supportedLanguages.firstWhere(
+      (element) => element['code'] == langCode,
+      orElse: () => supportedLanguages.first,
+    );
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Giao diện & Ngôn ngữ"),
-      ),
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         children: [
-          headerTheme("Chế độ màn hình"),
+          headerTheme(AppTranslations.getText('screen_mode', langCode)),
           const SizedBox(height: 8),
           Row(
             children: [
               buildThemeCard(
-                title: "Sáng",
+                title: AppTranslations.getText('light', langCode),
                 icon: Icons.light_mode_outlined,
                 value: 'light',
                 isDarkPreview: false,
               ),
               const SizedBox(width: 12),
               buildThemeCard(
-                title: "Tối",
+                title: AppTranslations.getText('dark', langCode),
                 icon: Icons.dark_mode_outlined,
                 value: 'dark',
                 isDarkPreview: true,
               ),
               const SizedBox(width: 12),
               buildThemeCard(
-                title: "Hệ thống",
+                title: AppTranslations.getText('system', langCode),
                 icon: Icons.settings_brightness_outlined,
                 value: 'system',
                 isSystemPreview: true,
@@ -63,7 +72,7 @@ class _SubThemeSettingState extends State<SubThemeSetting> {
             ],
           ),
           const SizedBox(height: 24),
-          headerTheme("Màu chủ đề đoạn chat (Sắp ra mắt)"),
+          headerTheme(AppTranslations.getText('chat_color', langCode)),
           const SizedBox(height: 8),
           Card(
             shape:
@@ -73,9 +82,8 @@ class _SubThemeSettingState extends State<SubThemeSetting> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Khung nền giả lập màn hình chat
                   Container(
-                    width: double.infinity, // Giãn full chiều ngang
+                    width: double.infinity,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 16, vertical: 12),
                     decoration: BoxDecoration(
@@ -103,9 +111,9 @@ class _SubThemeSettingState extends State<SubThemeSetting> {
                               bottomRight: Radius.circular(4),
                             ),
                           ),
-                          child: const Text(
-                            "Đoạn chat preview!",
-                            style: TextStyle(
+                          child: Text(
+                            AppTranslations.getText('chat_preview', langCode),
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 13,
                               fontWeight: FontWeight.w500,
@@ -149,17 +157,16 @@ class _SubThemeSettingState extends State<SubThemeSetting> {
             ),
           ),
           const SizedBox(height: 24),
-          headerTheme("Ngôn ngữ / Language"),
+          headerTheme(AppTranslations.getText('language', langCode)),
           const SizedBox(height: 8),
           Card(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
             child: ListTile(
               leading: const Icon(Icons.language),
-              title: const Text("Ngôn ngữ / Language"),
+              title: Text(AppTranslations.getText('language', langCode)),
               subtitle: Text(
-                supportedLanguages.firstWhere(
-                    (element) => element['code'] == selectedLanguage)['name']!,
+                currentLangMap['name']!,
                 style: const TextStyle(color: Colors.blue),
               ),
               trailing: const Icon(Icons.chevron_right),
@@ -179,42 +186,52 @@ class _SubThemeSettingState extends State<SubThemeSetting> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (context) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text(
-                "Chọn ngôn ngữ",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 12),
-              Flexible(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: supportedLanguages.length,
-                  itemBuilder: (context, index) {
-                    final lang = supportedLanguages[index];
-                    final isSelected = selectedLanguage == lang['code'];
-                    return ListTile(
-                      leading: Text(lang['flag']!,
-                          style: const TextStyle(fontSize: 24)),
-                      title: Text(lang['name']!),
-                      trailing: isSelected
-                          ? const Icon(Icons.check_circle, color: Colors.blue)
-                          : null,
-                      onTap: () {
-                        setState(() {
-                          selectedLanguage = lang['code']!;
-                        });
-                        Navigator.pop(context);
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setModalState) {
+            final langProvider = Provider.of<LanguageProvider>(context);
+            final currentLang = langProvider.currentLangCode;
+
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    AppTranslations.getText('choose_language', currentLang),
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 12),
+                  Flexible(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: supportedLanguages.length,
+                      itemBuilder: (context, index) {
+                        final lang = supportedLanguages[index];
+                        final isSelected = currentLang == lang['code'];
+
+                        return ListTile(
+                          leading: Text(
+                            lang['flag']!,
+                            style: const TextStyle(fontSize: 24),
+                          ),
+                          title: Text(lang['name']!),
+                          trailing: isSelected
+                              ? const Icon(Icons.check_circle,
+                                  color: Colors.blue)
+                              : null,
+                          onTap: () {
+                            langProvider.changeLanguage(lang['code']!);
+                            setModalState(() {});
+                            Navigator.pop(context);
+                          },
+                        );
                       },
-                    );
-                  },
-                ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            );
+          },
         );
       },
     );

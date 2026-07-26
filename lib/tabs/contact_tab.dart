@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:app/langs/language_dict.dart';
 
 class ContactTab extends StatefulWidget {
   const ContactTab({super.key});
@@ -22,12 +23,12 @@ class _ContactTabState extends State<ContactTab> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Contacts',
-            style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(AppTranslations.tr(context, 'contacts'),
+            style: const TextStyle(fontWeight: FontWeight.bold)),
         actions: [
           IconButton(
             icon: const Icon(Icons.person_add_alt_1),
-            tooltip: 'Thêm bạn mới',
+            tooltip: AppTranslations.tr(context, 'add_friend'),
             onPressed: () {},
           ),
         ],
@@ -42,7 +43,7 @@ class _ContactTabState extends State<ContactTab> {
               },
               style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
-                hintText: 'Tìm kiếm liên hệ...',
+                hintText: AppTranslations.tr(context, 'search_contact'),
                 prefixIcon: Icon(Icons.search, color: Colors.grey.shade900),
                 filled: true,
                 fillColor: Colors.grey.shade600,
@@ -59,8 +60,8 @@ class _ContactTabState extends State<ContactTab> {
               backgroundColor: Colors.blueAccent,
               child: Icon(Icons.group_add, color: Colors.white),
             ),
-            title: const Text('Tạo nhóm mới',
-                style: TextStyle(fontWeight: FontWeight.w600)),
+            title: Text(AppTranslations.tr(context, 'create_group'),
+                style: const TextStyle(fontWeight: FontWeight.w600)),
             onTap: () {},
           ),
           ListTile(
@@ -68,8 +69,8 @@ class _ContactTabState extends State<ContactTab> {
               backgroundColor: Colors.green,
               child: Icon(Icons.person_add, color: Colors.white),
             ),
-            title: const Text('Mời bạn bè sử dụng app',
-                style: TextStyle(fontWeight: FontWeight.w600)),
+            title: Text(AppTranslations.tr(context, 'invite_friends'),
+                style: const TextStyle(fontWeight: FontWeight.w600)),
             onTap: () {},
           ),
           const Divider(height: 20, thickness: 1),

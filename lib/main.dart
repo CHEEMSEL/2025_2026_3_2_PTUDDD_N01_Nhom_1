@@ -1,18 +1,28 @@
 import 'package:app/screens/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'langs/language_controller.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => LanguageProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    final langProvider = Provider.of<LanguageProvider>(context);
+
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      locale: langProvider.currentLocale,
+      home: const LoginScreen(),
     );
   }
 }

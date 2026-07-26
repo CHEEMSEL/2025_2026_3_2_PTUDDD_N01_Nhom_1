@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:app/langs/language_dict.dart';
 
 class SubStorageSetting extends StatelessWidget {
   const SubStorageSetting({super.key});
@@ -14,10 +15,10 @@ class SubStorageSetting extends StatelessWidget {
           child: Icon(Icons.storage, size: 50, color: Colors.white),
         ),
         const SizedBox(height: 16),
-        const Text(
-          "Lưu trữ",
+        Text(
+          AppTranslations.tr(context, 'storage'),
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 24),
         Card(
@@ -26,9 +27,9 @@ class SubStorageSetting extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "Dung lượng đã dùng",
-                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                Text(
+                  AppTranslations.tr(context, 'used_storage'),
+                  style: const TextStyle(fontSize: 14, color: Colors.grey),
                 ),
                 const SizedBox(height: 8),
                 ClipRRect(
@@ -46,31 +47,31 @@ class SubStorageSetting extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 12),
-        const Card(
+        Card(
           child: Column(
             children: [
               ListTile(
-                leading: Icon(Icons.image),
-                title: Text("Hình ảnh"),
-                trailing: Text("2.1 GB"),
+                leading: const Icon(Icons.image),
+                title: Text(AppTranslations.tr(context, 'images')),
+                trailing: const Text("2.1 GB"),
               ),
-              Divider(height: 1),
+              const Divider(height: 1),
               ListTile(
-                leading: Icon(Icons.video_library),
-                title: Text("Video"),
-                trailing: Text("1.5 GB"),
+                leading: const Icon(Icons.video_library),
+                title: Text(AppTranslations.tr(context, 'video')),
+                trailing: const Text("1.5 GB"),
               ),
-              Divider(height: 1),
+              const Divider(height: 1),
               ListTile(
-                leading: Icon(Icons.audiotrack),
-                title: Text("Âm thanh"),
-                trailing: Text("0.4 GB"),
+                leading: const Icon(Icons.audiotrack),
+                title: Text(AppTranslations.tr(context, 'audio')),
+                trailing: const Text("0.4 GB"),
               ),
-              Divider(height: 1),
+              const Divider(height: 1),
               ListTile(
-                leading: Icon(Icons.insert_drive_file),
-                title: Text("Tài liệu"),
-                trailing: Text("0.5 GB"),
+                leading: const Icon(Icons.insert_drive_file),
+                title: Text(AppTranslations.tr(context, 'documents')),
+                trailing: const Text("0.5 GB"),
               ),
             ],
           ),

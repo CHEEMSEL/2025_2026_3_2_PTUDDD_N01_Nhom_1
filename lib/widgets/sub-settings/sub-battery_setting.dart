@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:app/langs/language_dict.dart';
 
 class SubBatterySetting extends StatefulWidget {
   const SubBatterySetting({super.key});
@@ -21,33 +22,33 @@ class _SubBatterySettingState extends State<SubBatterySetting> {
           child: Icon(Icons.battery_saver, size: 50, color: Colors.white),
         ),
         const SizedBox(height: 16),
-        const Text(
-          "Tiết kiệm pin",
+        Text(
+          AppTranslations.tr(context, 'battery'),
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 24),
         Card(
           child: SwitchListTile(
-            title: const Text("Chế độ tiết kiệm pin"),
-            subtitle: const Text("Giảm hiệu năng để kéo dài thời gian dùng"),
+            title: Text(AppTranslations.tr(context, 'power_save_mode')),
+            subtitle: Text(AppTranslations.tr(context, 'power_save_desc')),
             value: _powerSaving,
             onChanged: (val) => setState(() => _powerSaving = val),
           ),
         ),
-        const Card(
+        Card(
           child: Column(
             children: [
               ListTile(
-                leading: Icon(Icons.battery_alert),
-                title: Text("Mức pin hiện tại"),
-                trailing: Text("85%"),
+                leading: const Icon(Icons.battery_alert),
+                title: Text(AppTranslations.tr(context, 'current_battery')),
+                trailing: const Text("85%"),
               ),
-              Divider(height: 1),
+              const Divider(height: 1),
               ListTile(
-                leading: Icon(Icons.timer),
-                title: Text("Thời gian còn lại"),
-                trailing: Text("~8 giờ"),
+                leading: const Icon(Icons.timer),
+                title: Text(AppTranslations.tr(context, 'remaining_time')),
+                trailing: const Text("~8 giờ"),
               ),
             ],
           ),

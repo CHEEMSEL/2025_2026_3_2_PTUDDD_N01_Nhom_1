@@ -1,5 +1,6 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
 import 'package:app/screens/in_chat_screen.dart';
+import 'package:app/langs/language_dict.dart';
 
 class InboxTab extends StatelessWidget {
   InboxTab({super.key});
@@ -27,11 +28,11 @@ class InboxTab extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey[500],
-        title: const Row(
+        title: Row(
           children: [
-            Icon(Icons.message),
-            SizedBox(width: 10),
-            Text("Inbox"),
+            const Icon(Icons.message),
+            const SizedBox(width: 10),
+            Text(AppTranslations.tr(context, 'inbox')),
           ],
         ),
         actions: [

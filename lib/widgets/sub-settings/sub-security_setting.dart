@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:app/langs/language_dict.dart';
 
 class SubSecuritySetting extends StatefulWidget {
   const SubSecuritySetting({super.key});
@@ -23,17 +24,18 @@ class _SubSecuritySettingState extends State<SubSecuritySetting> {
       builder: (_) => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Padding(
-            padding: EdgeInsets.all(16),
+          Padding(
+            padding: const EdgeInsets.all(16),
             child: Text(
-              "Thời gian khóa tự động",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+              AppTranslations.tr(context, 'auto_lock_time'),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             ),
           ),
           ..._timeoutOptions.map(
             (minutes) => ListTile(
-              title:
-                  Text(minutes < 60 ? "$minutes phút" : "${minutes ~/ 60} giờ"),
+              title: Text(minutes < 60
+                  ? "$minutes ${AppTranslations.tr(context, 'minutes')}"
+                  : "${minutes ~/ 60} ${AppTranslations.tr(context, 'minutes')}"),
               trailing: _lockTimeoutMinutes == minutes
                   ? const Icon(Icons.check, color: Colors.blue)
                   : null,
@@ -58,12 +60,12 @@ class _SubSecuritySettingState extends State<SubSecuritySetting> {
           children: [
             _buildTile(
               icon: Icons.lock_outline,
-              title: "Đổi mật khẩu",
+              title: AppTranslations.tr(context, 'change_password'),
               trailing: const Icon(Icons.arrow_forward_ios,
                   size: 16, color: Colors.grey),
               onTap: () {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("Tính năng đang phát triển")),
+                  SnackBar(content: Text(AppTranslations.tr(context, 'feature_developing'))),
                 );
               },
             ),
@@ -74,7 +76,7 @@ class _SubSecuritySettingState extends State<SubSecuritySetting> {
           children: [
             _buildTile(
               icon: Icons.fingerprint,
-              title: "Vân tay / Face ID",
+              title: AppTranslations.tr(context, 'fingerprint'),
               trailing: Switch(
                 value: _biometricEnabled,
                 activeTrackColor: Colors.blue,
@@ -88,7 +90,7 @@ class _SubSecuritySettingState extends State<SubSecuritySetting> {
           children: [
             _buildTile(
               icon: Icons.lock,
-              title: "Khóa ứng dụng",
+              title: AppTranslations.tr(context, 'app_lock'),
               trailing: Switch(
                 value: _appLockEnabled,
                 activeTrackColor: Colors.blue,
@@ -98,8 +100,8 @@ class _SubSecuritySettingState extends State<SubSecuritySetting> {
             if (_appLockEnabled)
               _buildTile(
                 icon: Icons.timer_outlined,
-                title: "Tự động khóa sau",
-                subtitle: "$_lockTimeoutMinutes phút",
+                title: AppTranslations.tr(context, 'auto_lock_after'),
+                subtitle: "$_lockTimeoutMinutes ${AppTranslations.tr(context, 'minutes')}",
                 trailing: const Icon(Icons.arrow_forward_ios,
                     size: 16, color: Colors.grey),
                 onTap: _showTimeoutPicker,
@@ -111,7 +113,7 @@ class _SubSecuritySettingState extends State<SubSecuritySetting> {
           children: [
             _buildTile(
               icon: Icons.info_outline,
-              title: "Phiên bản ứng dụng",
+              title: AppTranslations.tr(context, 'app_version'),
               subtitle: "1.0.0",
             ),
           ],

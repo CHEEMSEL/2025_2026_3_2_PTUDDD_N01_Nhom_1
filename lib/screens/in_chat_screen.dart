@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:app/langs/language_dict.dart';
 
 class InChatScreen extends StatelessWidget {
   final String username;
@@ -7,7 +8,7 @@ class InChatScreen extends StatelessWidget {
     this.username = "No one",
   });
 
-  final String currentUserId = "my_ID"; // Fetch login và so sánh sau
+  final String currentUserId = "my_ID";
 
   final List<Map<String, dynamic>> mockMessages = const [
     {
@@ -75,7 +76,6 @@ class InChatScreen extends StatelessWidget {
           ),
         ],
       ),
-      //Phần chat
       body: Column(children: [
         Expanded(
           child: ListView.builder(
@@ -87,9 +87,7 @@ class InChatScreen extends StatelessWidget {
               return Align(
                 alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
                 child: GestureDetector(
-                    onTap: () {
-                      // Logic sau
-                    },
+                    onTap: () {},
                     child: Container(
                         margin: const EdgeInsets.symmetric(vertical: 4.0),
                         padding: const EdgeInsets.symmetric(
@@ -124,7 +122,6 @@ class InChatScreen extends StatelessWidget {
             },
           ),
         ),
-        //Ô nhập tin
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
           decoration: BoxDecoration(
@@ -136,15 +133,13 @@ class InChatScreen extends StatelessWidget {
             children: [
               IconButton(
                 icon: const Icon(Icons.add, color: Colors.blueAccent),
-                onPressed: () {
-                  //Nothing :D
-                },
+                onPressed: () {},
               ),
               Expanded(
                 child: TextField(
                   style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
-                    hintText: "Nhập tin nhắn...",
+                    hintText: AppTranslations.tr(context, 'enter_message'),
                     hintStyle: const TextStyle(color: Colors.white70),
                     filled: true,
                     fillColor: Colors.grey[800],
@@ -162,9 +157,7 @@ class InChatScreen extends StatelessWidget {
                 backgroundColor: Colors.blueAccent,
                 child: IconButton(
                   icon: const Icon(Icons.send, color: Colors.white, size: 20),
-                  onPressed: () {
-                    //Nút bấm gửi tạm thời
-                  },
+                  onPressed: () {},
                 ),
               ),
             ],
