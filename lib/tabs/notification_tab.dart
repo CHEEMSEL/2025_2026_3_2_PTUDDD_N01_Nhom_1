@@ -70,8 +70,10 @@ class NotificationList extends StatelessWidget {
             ),
           ),
           title: Text("${items['title']} - ${items['time']}",
-              style:
-                  TextStyle(color: items['read'] ? Colors.grey : Colors.black)),
+              style: TextStyle(
+                  color: items['read']
+                      ? Theme.of(context).colorScheme.onSurfaceVariant
+                      : Theme.of(context).colorScheme.onSurface)),
           subtitle: Text(
             items['subtitle'],
             softWrap: true,

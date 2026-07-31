@@ -6,19 +6,21 @@ class SubAboutSetting extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        const CircleAvatar(
+        CircleAvatar(
           radius: 50,
-          backgroundColor: Colors.blue,
-          child: Icon(Icons.info, size: 50, color: Colors.white),
+          backgroundColor: scheme.secondaryContainer,
+          child: Icon(Icons.info, size: 50, color: scheme.onSecondaryContainer),
         ),
         const SizedBox(height: 16),
         Text(
           AppTranslations.tr(context, 'app_title'),
           textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          style: textTheme.headlineSmall,
         ),
         const SizedBox(height: 24),
         Card(
@@ -48,7 +50,7 @@ class SubAboutSetting extends StatelessWidget {
         Text(
           AppTranslations.tr(context, 'copyright'),
           textAlign: TextAlign.center,
-          style: const TextStyle(color: Colors.grey, fontSize: 12),
+          style: textTheme.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
         ),
       ],
     );

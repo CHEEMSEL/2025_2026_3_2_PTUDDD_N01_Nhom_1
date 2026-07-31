@@ -39,7 +39,7 @@ class CreateAccount extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 30),
-                  ElevatedButton(
+                  FilledButton(
                       onPressed: () {
                         Navigator.push(
                             context,

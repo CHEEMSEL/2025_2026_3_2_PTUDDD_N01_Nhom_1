@@ -66,8 +66,9 @@ class _SubSecuritySettingState extends State<SubSecuritySetting> {
             _buildTile(
               icon: Icons.lock_outline,
               title: AppTranslations.tr(context, 'change_password'),
-              trailing: const Icon(Icons.arrow_forward_ios,
-                  size: 16, color: Colors.grey),
+              trailing: Icon(Icons.arrow_forward_ios,
+                  size: 16,
+                  color: Theme.of(context).colorScheme.onSurfaceVariant),
               onTap: () {
                 final langCode = Provider.of<LanguageProvider>(context,
                         listen: false)
@@ -89,7 +90,6 @@ class _SubSecuritySettingState extends State<SubSecuritySetting> {
               title: AppTranslations.tr(context, 'fingerprint'),
               trailing: Switch(
                 value: _biometricEnabled,
-                activeTrackColor: Colors.blue,
                 onChanged: (v) => setState(() => _biometricEnabled = v),
               ),
             ),
@@ -103,7 +103,6 @@ class _SubSecuritySettingState extends State<SubSecuritySetting> {
               title: AppTranslations.tr(context, 'app_lock'),
               trailing: Switch(
                 value: _appLockEnabled,
-                activeTrackColor: Colors.blue,
                 onChanged: (v) => setState(() => _appLockEnabled = v),
               ),
             ),
@@ -112,8 +111,9 @@ class _SubSecuritySettingState extends State<SubSecuritySetting> {
                 icon: Icons.timer_outlined,
                 title: AppTranslations.tr(context, 'auto_lock_after'),
                 subtitle: "$_lockTimeoutMinutes ${AppTranslations.tr(context, 'minutes')}",
-                trailing: const Icon(Icons.arrow_forward_ios,
-                    size: 16, color: Colors.grey),
+                trailing: Icon(Icons.arrow_forward_ios,
+                    size: 16,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant),
                 onTap: _showTimeoutPicker,
               ),
           ],
@@ -135,7 +135,6 @@ class _SubSecuritySettingState extends State<SubSecuritySetting> {
   Widget _buildCard({required List<Widget> children}) {
     return Card(
       margin: EdgeInsets.zero,
-      elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Column(children: children),
     );
@@ -155,7 +154,9 @@ class _SubSecuritySettingState extends State<SubSecuritySetting> {
       ),
       title: Text(title, style: const TextStyle(fontWeight: FontWeight.w500)),
       subtitle: subtitle != null
-          ? Text(subtitle, style: const TextStyle(color: Colors.grey))
+          ? Text(subtitle,
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant))
           : null,
       trailing: trailing,
       onTap: onTap,

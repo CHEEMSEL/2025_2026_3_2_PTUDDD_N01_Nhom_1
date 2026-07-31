@@ -45,9 +45,11 @@ class InChatScreen extends StatelessWidget {
       appBar: AppBar(
         title: Row(children: [
           CircleAvatar(
-            backgroundColor: Colors.grey[500],
+            backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
             child: Text(
               username.isNotEmpty ? username[0].toUpperCase() : "?",
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSecondaryContainer),
             ),
           ),
           const SizedBox(width: 10),

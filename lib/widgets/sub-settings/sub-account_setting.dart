@@ -6,24 +6,26 @@ class SubAccountSetting extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        const CircleAvatar(
+        CircleAvatar(
           radius: 50,
-          backgroundColor: Colors.blue,
-          child: Icon(Icons.person, size: 50, color: Colors.white),
+          backgroundColor: scheme.secondaryContainer,
+          child: Icon(Icons.person, size: 50, color: scheme.onSecondaryContainer),
         ),
         const SizedBox(height: 16),
-        const Text(
+        Text(
           "Nguyễn Văn A",
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          style: textTheme.headlineSmall,
         ),
-        const Text(
+        Text(
           "nguyenvana@email.com",
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 16, color: Colors.grey),
+          style: textTheme.bodyLarge?.copyWith(color: scheme.onSurfaceVariant),
         ),
         const SizedBox(height: 24),
         Card(

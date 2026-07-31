@@ -16,7 +16,6 @@ class SettingItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-      elevation: 2,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
@@ -29,10 +28,10 @@ class SettingItem extends StatelessWidget {
           title,
           style: Theme.of(context).textTheme.titleMedium,
         ),
-        trailing: const Icon(
+        trailing: Icon(
           Icons.arrow_forward_ios,
           size: 16,
-          color: Colors.grey,
+          color: Theme.of(context).colorScheme.onSurfaceVariant,
         ),
         onTap: onTap,
       ),

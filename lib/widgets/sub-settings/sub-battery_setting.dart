@@ -13,19 +13,22 @@ class _SubBatterySettingState extends State<SubBatterySetting> {
 
   @override
   Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        const CircleAvatar(
+        CircleAvatar(
           radius: 50,
-          backgroundColor: Colors.green,
-          child: Icon(Icons.battery_saver, size: 50, color: Colors.white),
+          backgroundColor: scheme.secondaryContainer,
+          child: Icon(Icons.battery_saver,
+              size: 50, color: scheme.onSecondaryContainer),
         ),
         const SizedBox(height: 16),
         Text(
           AppTranslations.tr(context, 'battery'),
           textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          style: textTheme.headlineSmall,
         ),
         const SizedBox(height: 24),
         Card(

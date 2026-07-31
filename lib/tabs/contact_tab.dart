@@ -53,18 +53,20 @@ class _ContactTabState extends State<ContactTab> {
             ),
           ),
           ListTile(
-            leading: const CircleAvatar(
-              backgroundColor: Colors.blueAccent,
-              child: Icon(Icons.group_add, color: Colors.white),
+            leading: CircleAvatar(
+              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+              child: Icon(Icons.group_add,
+                  color: Theme.of(context).colorScheme.onPrimaryContainer),
             ),
             title: Text(AppTranslations.tr(context, 'create_group'),
                 style: const TextStyle(fontWeight: FontWeight.w600)),
             onTap: () {},
           ),
           ListTile(
-            leading: const CircleAvatar(
-              backgroundColor: Colors.green,
-              child: Icon(Icons.person_add, color: Colors.white),
+            leading: CircleAvatar(
+              backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
+              child: Icon(Icons.person_add,
+                  color: Theme.of(context).colorScheme.onTertiaryContainer),
             ),
             title: Text(AppTranslations.tr(context, 'invite_friends'),
                 style: const TextStyle(fontWeight: FontWeight.w600)),
@@ -81,11 +83,15 @@ class _ContactTabState extends State<ContactTab> {
                     children: [
                       CircleAvatar(
                         radius: 22,
-                        backgroundColor: Colors.blueGrey,
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondaryContainer,
                         child: Text(
                           contact['name'][0],
-                          style: const TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSecondaryContainer,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                       if (contact['isOnline'])
@@ -96,10 +102,10 @@ class _ContactTabState extends State<ContactTab> {
                             width: 12,
                             height: 12,
                             decoration: BoxDecoration(
-                              color: Colors.green,
+                              color: Theme.of(context).colorScheme.tertiary,
                               shape: BoxShape.circle,
                               border: Border.all(
-                                color: Colors.grey.shade300,
+                                color: Theme.of(context).colorScheme.surface,
                                 width: 2,
                               ),
                             ),
@@ -115,8 +121,8 @@ class _ContactTabState extends State<ContactTab> {
                     contact['status'],
                     style: TextStyle(
                       color: contact['isOnline']
-                          ? Colors.greenAccent
-                          : Colors.grey,
+                          ? Theme.of(context).colorScheme.tertiary
+                          : Theme.of(context).colorScheme.outline,
                       fontSize: 12,
                     ),
                   ),

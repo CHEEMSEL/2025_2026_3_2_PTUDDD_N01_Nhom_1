@@ -6,19 +6,21 @@ class SubStorageSetting extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        const CircleAvatar(
+        CircleAvatar(
           radius: 50,
-          backgroundColor: Colors.teal,
-          child: Icon(Icons.storage, size: 50, color: Colors.white),
+          backgroundColor: scheme.secondaryContainer,
+          child: Icon(Icons.storage, size: 50, color: scheme.onSecondaryContainer),
         ),
         const SizedBox(height: 16),
         Text(
           AppTranslations.tr(context, 'storage'),
           textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          style: textTheme.headlineSmall,
         ),
         const SizedBox(height: 24),
         Card(
@@ -29,15 +31,16 @@ class SubStorageSetting extends StatelessWidget {
               children: [
                 Text(
                   AppTranslations.tr(context, 'used_storage'),
-                  style: const TextStyle(fontSize: 14, color: Colors.grey),
+                  style: textTheme.bodyMedium?.copyWith(
+                      color: scheme.onSurfaceVariant),
                 ),
                 const SizedBox(height: 8),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: const LinearProgressIndicator(
+                  child: LinearProgressIndicator(
                     value: 0.45,
                     minHeight: 12,
-                    backgroundColor: Colors.grey,
+                    backgroundColor: scheme.surfaceContainerHighest,
                   ),
                 ),
                 const SizedBox(height: 8),

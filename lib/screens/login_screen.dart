@@ -40,7 +40,7 @@ class LoginScreen extends StatelessWidget {
                   Row(
                     children: [
                       Expanded(
-                        child: ElevatedButton(
+                        child: FilledButton(
                             onPressed: () {
                               Navigator.pushReplacement(
                                   context,
@@ -52,7 +52,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                       const SizedBox(width: 20),
                       Expanded(
-                          child: ElevatedButton(
+                          child: FilledButton.tonal(
                               onPressed: () {
                                 Navigator.push(
                                     context,

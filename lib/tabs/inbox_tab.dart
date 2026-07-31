@@ -64,7 +64,6 @@ class InboxListTile extends StatelessWidget {
         final bool isUnread = state == "Unread";
         return Card(
           margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
-          elevation: 2,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -116,7 +115,9 @@ class InboxListTile extends StatelessWidget {
                         size: 15,
                       ),
                     "Sending" =>
-                    const Icon(Icons.timer, color: Colors.orange, size: 15),
+                      Icon(Icons.timer,
+                          color: Theme.of(context).colorScheme.tertiary,
+                          size: 15),
                     _ => const SizedBox.shrink(),
                   },
               ],

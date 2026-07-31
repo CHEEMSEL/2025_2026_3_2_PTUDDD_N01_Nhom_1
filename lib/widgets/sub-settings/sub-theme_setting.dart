@@ -88,8 +88,8 @@ class _SubThemeSettingState extends State<SubThemeSetting> {
                         horizontal: 16, vertical: 12),
                     decoration: BoxDecoration(
                       color: Theme.of(context).brightness == Brightness.dark
-                          ? Colors.grey.shade900
-                          : Colors.grey.shade100,
+                          ? Theme.of(context).colorScheme.inverseSurface
+                          : Theme.of(context).colorScheme.surfaceContainerHighest,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Row(
@@ -101,7 +101,7 @@ class _SubThemeSettingState extends State<SubThemeSetting> {
                           decoration: BoxDecoration(
                             color: chatAccentColor,
                             border: Border.all(
-                              color: Colors.grey.shade700,
+                              color: Theme.of(context).colorScheme.outline,
                               width: 1.5,
                             ),
                             borderRadius: const BorderRadius.only(
@@ -200,7 +200,7 @@ class _SubThemeSettingState extends State<SubThemeSetting> {
                 children: [
                   Text(
                     AppTranslations.getText('choose_language', currentLang),
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
                   const SizedBox(height: 12),
                   Flexible(
@@ -218,8 +218,8 @@ class _SubThemeSettingState extends State<SubThemeSetting> {
                           ),
                           title: Text(lang['name']!),
                           trailing: isSelected
-                              ? const Icon(Icons.check_circle,
-                                  color: Colors.blue)
+                              ? Icon(Icons.check_circle,
+                                  color: Theme.of(context).colorScheme.primary)
                               : null,
                           onTap: () {
                             langProvider.changeLanguage(lang['code']!);
@@ -265,11 +265,9 @@ class _SubThemeSettingState extends State<SubThemeSetting> {
                   : Theme.of(context).colorScheme.outlineVariant,
               width: isSelected ? 2 : 1,
             ),
-            color: isDarkPreview
-                ? Colors.black87
-                : (isSystemPreview
-                    ? Colors.grey.shade800
-                    : Colors.grey.shade200),
+            color: isDarkPreview || isSystemPreview
+                ? Theme.of(context).colorScheme.inverseSurface
+                : Theme.of(context).colorScheme.surfaceContainerHighest,
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -277,8 +275,8 @@ class _SubThemeSettingState extends State<SubThemeSetting> {
               Icon(
                 icon,
                 color: isDarkPreview || isSystemPreview
-                    ? Colors.white
-                    : Colors.black87,
+                    ? Theme.of(context).colorScheme.onInverseSurface
+                    : Theme.of(context).colorScheme.onSurface,
               ),
               const SizedBox(height: 8),
               Text(
@@ -287,8 +285,8 @@ class _SubThemeSettingState extends State<SubThemeSetting> {
                   fontWeight: FontWeight.bold,
                   fontSize: 13,
                   color: isDarkPreview || isSystemPreview
-                      ? Colors.white
-                      : Colors.black87,
+                      ? Theme.of(context).colorScheme.onInverseSurface
+                      : Theme.of(context).colorScheme.onSurface,
                 ),
               ),
               if (isSelected) ...[
@@ -309,10 +307,8 @@ class _SubThemeSettingState extends State<SubThemeSetting> {
   Widget headerTheme(String title) {
     return Text(
       title,
-      style: const TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.bold,
-        color: Colors.grey,
+      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+        color: Theme.of(context).colorScheme.onSurfaceVariant,
       ),
     );
   }

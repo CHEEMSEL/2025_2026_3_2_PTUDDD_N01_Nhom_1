@@ -15,19 +15,22 @@ class _SubNotificationSettingState extends State<SubNotificationSetting> {
 
   @override
   Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        const CircleAvatar(
+        CircleAvatar(
           radius: 50,
-          backgroundColor: Colors.orange,
-          child: Icon(Icons.notifications, size: 50, color: Colors.white),
+          backgroundColor: scheme.secondaryContainer,
+          child: Icon(Icons.notifications,
+              size: 50, color: scheme.onSecondaryContainer),
         ),
         const SizedBox(height: 16),
         Text(
           AppTranslations.tr(context, 'notification'),
           textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          style: textTheme.headlineSmall,
         ),
         const SizedBox(height: 24),
         Card(
