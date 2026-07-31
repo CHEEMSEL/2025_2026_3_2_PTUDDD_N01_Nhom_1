@@ -39,7 +39,10 @@ class _SubSecuritySettingState extends State<SubSecuritySetting> {
                   ? "$minutes ${AppTranslations.tr(context, 'minutes')}"
                   : "${minutes ~/ 60} ${AppTranslations.tr(context, 'minutes')}"),
               trailing: _lockTimeoutMinutes == minutes
-                  ? const Icon(Icons.check, color: Colors.blue)
+                  ? Icon(
+                      Icons.check,
+                      color: Theme.of(context).colorScheme.primary,
+                    )
                   : null,
               onTap: () {
                 setState(() => _lockTimeoutMinutes = minutes);
@@ -147,8 +150,8 @@ class _SubSecuritySettingState extends State<SubSecuritySetting> {
   }) {
     return ListTile(
       leading: CircleAvatar(
-        backgroundColor: Colors.blue.withOpacity(0.1),
-        child: Icon(icon, color: Colors.blue),
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+        child: Icon(icon, color: Theme.of(context).colorScheme.primary),
       ),
       title: Text(title, style: const TextStyle(fontWeight: FontWeight.w500)),
       subtitle: subtitle != null

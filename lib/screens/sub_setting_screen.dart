@@ -26,17 +26,18 @@ class SubSettingScreen extends StatelessWidget {
                 if (iconData != null)
                   CircleAvatar(
                     radius: 50,
-                    backgroundColor: Colors.blue.withOpacity(0.1),
-                    child: Icon(iconData, size: 50, color: Colors.blue),
+                    backgroundColor:
+                        Theme.of(context).colorScheme.primaryContainer,
+                    child: Icon(
+                      iconData,
+                      size: 50,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   ),
                 const SizedBox(height: 16),
                 Text(
                   title,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black87,
-                  ),
+                  style: Theme.of(context).textTheme.headlineSmall,
                 ),
               ],
             ),

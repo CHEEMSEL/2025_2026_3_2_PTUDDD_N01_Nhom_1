@@ -27,14 +27,7 @@ class InboxTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.grey[500],
-        title: Row(
-          children: [
-            const Icon(Icons.message),
-            const SizedBox(width: 10),
-            Text(AppTranslations.tr(context, 'inbox')),
-          ],
-        ),
+        title: Text(AppTranslations.tr(context, 'inbox')),
         actions: [
           IconButton(
             icon: const Icon(Icons.search),
@@ -77,40 +70,55 @@ class InboxListTile extends StatelessWidget {
           ),
           child: ListTile(
             leading: CircleAvatar(
-              backgroundColor: isUnread ? Colors.blue : Colors.grey[400],
+              backgroundColor:
+                  isUnread ? Theme.of(context).colorScheme.primary : null,
               child: Text(
                 user.isNotEmpty ? user[0] : "?",
-                style: const TextStyle(color: Colors.black),
+                style: TextStyle(
+                  color: isUnread
+                      ? Theme.of(context).colorScheme.onPrimary
+                      : Theme.of(context).colorScheme.onSurface,
+                ),
               ),
             ),
-            title: Text(
-              user,
-              style: TextStyle(
-                color: isUnread ? Colors.black : Colors.grey[400],
-                fontWeight: isUnread ? FontWeight.w600 : FontWeight.normal,
-              ),
-            ),
-            subtitle: Text(
-              message,
-              style: TextStyle(
-                color: isUnread ? Colors.black : Colors.grey[400],
-                fontWeight: isUnread ? FontWeight.w600 : FontWeight.normal,
-              ),
-            ),
+                title: Text(
+                  user,
+                  style: TextStyle(
+                    color: isUnread
+                        ? Theme.of(context).colorScheme.onSurface
+                        : Theme.of(context).colorScheme.outline,
+                    fontWeight: isUnread ? FontWeight.w600 : FontWeight.normal,
+                  ),
+                ),
+                subtitle: Text(
+                  message,
+                  style: TextStyle(
+                    color: isUnread
+                        ? Theme.of(context).colorScheme.onSurface
+                        : Theme.of(context).colorScheme.outline,
+                    fontWeight: isUnread ? FontWeight.w600 : FontWeight.normal,
+                  ),
+                ),
             trailing: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(TimeOfDay.now().format(context)),
                 const SizedBox(height: 7),
-                switch (state) {
-                  "Unread" =>
-                    const Icon(Icons.circle, color: Colors.blue, size: 15),
-                  "Read" =>
-                    const Icon(Icons.task_alt, color: Colors.grey, size: 15),
-                  "Sending" =>
+                  switch (state) {
+                    "Unread" => Icon(
+                        Icons.circle,
+                        color: Theme.of(context).colorScheme.primary,
+                        size: 15,
+                      ),
+                    "Read" => Icon(
+                        Icons.task_alt,
+                        color: Theme.of(context).colorScheme.outline,
+                        size: 15,
+                      ),
+                    "Sending" =>
                     const Icon(Icons.timer, color: Colors.orange, size: 15),
-                  _ => const SizedBox.shrink(),
-                },
+                    _ => const SizedBox.shrink(),
+                  },
               ],
             ),
             onTap: () {

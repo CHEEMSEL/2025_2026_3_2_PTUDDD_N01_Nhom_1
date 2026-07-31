@@ -29,31 +29,27 @@ class _MainScreenState extends State<MainScreen> {
         index: slectedIndex,
         children: tabs,
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.grey[800],
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.white,
-        currentIndex: slectedIndex,
-        onTap: (index) {
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: slectedIndex,
+        onDestinationSelected: (index) {
           setState(() {
             slectedIndex = index;
           });
         },
-        items: [
-          BottomNavigationBarItem(
+        destinations: [
+          NavigationDestination(
             icon: const Icon(Icons.message),
             label: AppTranslations.tr(context, 'messages'),
           ),
-          BottomNavigationBarItem(
+          NavigationDestination(
             icon: const Icon(Icons.person_pin),
             label: AppTranslations.tr(context, 'contact'),
           ),
-          BottomNavigationBarItem(
+          NavigationDestination(
             icon: const Icon(Icons.notifications),
             label: AppTranslations.tr(context, 'notifications'),
           ),
-          BottomNavigationBarItem(
+          NavigationDestination(
             icon: const Icon(Icons.settings),
             label: AppTranslations.tr(context, 'settings'),
           ),

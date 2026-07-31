@@ -57,10 +57,11 @@ class InChatScreen extends StatelessWidget {
               Text(username),
               Text(
                 state[2],
-                style: const TextStyle(
-                    fontSize: 14,
-                    color: Colors.blue,
-                    fontWeight: FontWeight.w500),
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Theme.of(context).colorScheme.primary,
+                  fontWeight: FontWeight.w500,
+                ),
               )
             ],
           )
@@ -95,7 +96,11 @@ class InChatScreen extends StatelessWidget {
                         constraints: BoxConstraints(
                             maxWidth: MediaQuery.of(context).size.width * 0.7),
                         decoration: BoxDecoration(
-                          color: isMe ? Colors.blue : Colors.grey[300],
+                          color: isMe
+                              ? Theme.of(context).colorScheme.primary
+                              : Theme.of(context)
+                                  .colorScheme
+                                  .surfaceContainerHighest,
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                         child: Column(
@@ -104,7 +109,9 @@ class InChatScreen extends StatelessWidget {
                             Text(
                               message['text'],
                               style: TextStyle(
-                                color: isMe ? Colors.white : Colors.black,
+                                color: isMe
+                                    ? Theme.of(context).colorScheme.onPrimary
+                                    : Theme.of(context).colorScheme.onSurface,
                                 fontSize: 16.0,
                               ),
                             ),
@@ -112,7 +119,15 @@ class InChatScreen extends StatelessWidget {
                             Text(
                               message['time'],
                               style: TextStyle(
-                                color: isMe ? Colors.white70 : Colors.black54,
+                                color: isMe
+                                    ? Theme.of(context)
+                                        .colorScheme
+                                        .onPrimary
+                                        .withValues(alpha: 0.7)
+                                    : Theme.of(context)
+                                        .colorScheme
+                                        .onSurface
+                                        .withValues(alpha: 0.6),
                                 fontSize: 12.0,
                               ),
                             ),
@@ -125,24 +140,28 @@ class InChatScreen extends StatelessWidget {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
           decoration: BoxDecoration(
-            color: Colors.grey[900],
+            color: Theme.of(context).colorScheme.surface,
             border: Border(
-                top: BorderSide(color: Colors.grey.shade800, width: 0.5)),
+              top: BorderSide(
+                color: Theme.of(context).colorScheme.outlineVariant,
+                width: 0.5,
+              ),
+            ),
           ),
           child: Row(
             children: [
               IconButton(
-                icon: const Icon(Icons.add, color: Colors.blueAccent),
+                icon: Icon(
+                  Icons.add,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
                 onPressed: () {},
               ),
               Expanded(
                 child: TextField(
-                  style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     hintText: AppTranslations.tr(context, 'enter_message'),
-                    hintStyle: const TextStyle(color: Colors.white70),
                     filled: true,
-                    fillColor: Colors.grey[800],
                     contentPadding: const EdgeInsets.symmetric(
                         horizontal: 16, vertical: 10),
                     border: OutlineInputBorder(
@@ -154,9 +173,13 @@ class InChatScreen extends StatelessWidget {
               ),
               const SizedBox(width: 6),
               CircleAvatar(
-                backgroundColor: Colors.blueAccent,
+                backgroundColor: Theme.of(context).colorScheme.primary,
                 child: IconButton(
-                  icon: const Icon(Icons.send, color: Colors.white, size: 20),
+                  icon: Icon(
+                    Icons.send,
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    size: 20,
+                  ),
                   onPressed: () {},
                 ),
               ),

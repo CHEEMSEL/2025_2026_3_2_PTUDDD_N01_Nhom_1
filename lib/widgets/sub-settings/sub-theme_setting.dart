@@ -167,7 +167,9 @@ class _SubThemeSettingState extends State<SubThemeSetting> {
               title: Text(AppTranslations.getText('language', langCode)),
               subtitle: Text(
                 currentLangMap['name']!,
-                style: const TextStyle(color: Colors.blue),
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                ),
               ),
               trailing: const Icon(Icons.chevron_right),
               onTap: () => showLanguageBottomSheet(context),
@@ -258,7 +260,9 @@ class _SubThemeSettingState extends State<SubThemeSetting> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
-              color: isSelected ? Colors.blue : Colors.grey.shade800,
+              color: isSelected
+                  ? Theme.of(context).colorScheme.primary
+                  : Theme.of(context).colorScheme.outlineVariant,
               width: isSelected ? 2 : 1,
             ),
             color: isDarkPreview
@@ -289,7 +293,11 @@ class _SubThemeSettingState extends State<SubThemeSetting> {
               ),
               if (isSelected) ...[
                 const SizedBox(height: 4),
-                const Icon(Icons.check_circle, color: Colors.blue, size: 16),
+                Icon(
+                  Icons.check_circle,
+                  color: Theme.of(context).colorScheme.primary,
+                  size: 16,
+                ),
               ]
             ],
           ),

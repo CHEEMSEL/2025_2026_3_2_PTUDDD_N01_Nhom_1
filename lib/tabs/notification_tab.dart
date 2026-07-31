@@ -34,7 +34,6 @@ class NotificationTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.grey[500],
           title: Text(AppTranslations.tr(context, 'notifications')),
           actions: [
             IconButton(
@@ -62,8 +61,13 @@ class NotificationList extends StatelessWidget {
         final items = notifications[index];
         return ListTile(
           leading: CircleAvatar(
-            backgroundColor: Colors.grey[500],
-            child: Text(items['avatar'] as String),
+            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+            child: Text(
+              items['avatar'] as String,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
+              ),
+            ),
           ),
           title: Text("${items['title']} - ${items['time']}",
               style:
@@ -73,11 +77,16 @@ class NotificationList extends StatelessWidget {
             softWrap: true,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(color: items['read'] ? Colors.grey : Colors.black),
+            style: TextStyle(
+                color: items['read']
+                    ? Theme.of(context).colorScheme.onSurfaceVariant
+                    : Theme.of(context).colorScheme.onSurface),
           ),
           trailing: Icon(
             Icons.arrow_forward_ios,
-            color: items['read'] ? Colors.grey : Colors.black,
+            color: items['read']
+                ? Theme.of(context).colorScheme.onSurfaceVariant
+                : Theme.of(context).colorScheme.onSurface,
             size: 16,
           ),
           onTap: () {

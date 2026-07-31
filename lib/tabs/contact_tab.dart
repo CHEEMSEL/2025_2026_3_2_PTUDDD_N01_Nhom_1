@@ -23,8 +23,7 @@ class _ContactTabState extends State<ContactTab> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppTranslations.tr(context, 'contacts'),
-            style: const TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(AppTranslations.tr(context, 'contacts')),
         actions: [
           IconButton(
             icon: const Icon(Icons.person_add_alt_1),
@@ -41,12 +40,10 @@ class _ContactTabState extends State<ContactTab> {
               onChanged: (value) {
                 setState(() {});
               },
-              style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 hintText: AppTranslations.tr(context, 'search_contact'),
-                prefixIcon: Icon(Icons.search, color: Colors.grey.shade900),
+                prefixIcon: const Icon(Icons.search),
                 filled: true,
-                fillColor: Colors.grey.shade600,
                 contentPadding: const EdgeInsets.symmetric(vertical: 0),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
