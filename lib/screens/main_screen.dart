@@ -25,9 +25,6 @@ class _MainScreenState extends State<MainScreen> {
     ];
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppTranslations.tr(context, 'main_screen')),
-      ),
       body: IndexedStack(
         index: slectedIndex,
         children: tabs,
