@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:app/langs/language_controller.dart';
 import 'package:app/langs/language_dict.dart';
 
 class SubSecuritySetting extends StatefulWidget {
@@ -64,8 +66,13 @@ class _SubSecuritySettingState extends State<SubSecuritySetting> {
               trailing: const Icon(Icons.arrow_forward_ios,
                   size: 16, color: Colors.grey),
               onTap: () {
+                final langCode = Provider.of<LanguageProvider>(context,
+                        listen: false)
+                    .currentLangCode;
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(AppTranslations.tr(context, 'feature_developing'))),
+                  SnackBar(
+                      content: Text(AppTranslations.getText(
+                          'feature_developing', langCode))),
                 );
               },
             ),

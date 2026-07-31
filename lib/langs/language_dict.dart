@@ -376,8 +376,7 @@ class AppTranslations {
   }
 
   static String tr(BuildContext context, String key) {
-    final langCode =
-        Provider.of<LanguageProvider>(context, listen: false).currentLangCode;
+    final langCode = Provider.of<LanguageProvider>(context).currentLangCode;
     return getText(key, langCode);
   }
 }
