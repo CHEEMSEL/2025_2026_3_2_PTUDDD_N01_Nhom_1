@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:app/langs/language_dict.dart';
+import 'package:app/widgets/sub_setting_header.dart';
 
 class SubStorageSetting extends StatelessWidget {
   const SubStorageSetting({super.key});
@@ -8,20 +9,11 @@ class SubStorageSetting extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
+    String t(String key) => AppTranslations.tr(context, key);
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        CircleAvatar(
-          radius: 50,
-          backgroundColor: scheme.secondaryContainer,
-          child: Icon(Icons.storage, size: 50, color: scheme.onSecondaryContainer),
-        ),
-        const SizedBox(height: 16),
-        Text(
-          AppTranslations.tr(context, 'storage'),
-          textAlign: TextAlign.center,
-          style: textTheme.headlineSmall,
-        ),
+        SubSettingHeader(icon: Icons.storage, title: t('storage')),
         const SizedBox(height: 24),
         Card(
           child: Padding(
@@ -30,9 +22,10 @@ class SubStorageSetting extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  AppTranslations.tr(context, 'used_storage'),
+                  t('used_storage'),
                   style: textTheme.bodyMedium?.copyWith(
-                      color: scheme.onSurfaceVariant),
+                    color: scheme.onSurfaceVariant,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 ClipRRect(
@@ -53,33 +46,25 @@ class SubStorageSetting extends StatelessWidget {
         Card(
           child: Column(
             children: [
-              ListTile(
-                leading: const Icon(Icons.image),
-                title: Text(AppTranslations.tr(context, 'images')),
-                trailing: const Text("2.1 GB"),
-              ),
+              _storageTile(Icons.image, t('images'), "2.1 GB"),
               const Divider(height: 1),
-              ListTile(
-                leading: const Icon(Icons.video_library),
-                title: Text(AppTranslations.tr(context, 'video')),
-                trailing: const Text("1.5 GB"),
-              ),
+              _storageTile(Icons.video_library, t('video'), "1.5 GB"),
               const Divider(height: 1),
-              ListTile(
-                leading: const Icon(Icons.audiotrack),
-                title: Text(AppTranslations.tr(context, 'audio')),
-                trailing: const Text("0.4 GB"),
-              ),
+              _storageTile(Icons.audiotrack, t('audio'), "0.4 GB"),
               const Divider(height: 1),
-              ListTile(
-                leading: const Icon(Icons.insert_drive_file),
-                title: Text(AppTranslations.tr(context, 'documents')),
-                trailing: const Text("0.5 GB"),
-              ),
+              _storageTile(Icons.insert_drive_file, t('documents'), "0.5 GB"),
             ],
           ),
         ),
       ],
+    );
+  }
+
+  Widget _storageTile(IconData icon, String title, String value) {
+    return ListTile(
+      leading: Icon(icon),
+      title: Text(title),
+      trailing: Text(value),
     );
   }
 }

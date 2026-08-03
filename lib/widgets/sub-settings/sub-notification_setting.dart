@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:app/langs/language_dict.dart';
+import 'package:app/widgets/sub_setting_header.dart';
 
 class SubNotificationSetting extends StatefulWidget {
   const SubNotificationSetting({super.key});
 
   @override
-  State<SubNotificationSetting> createState() => _SubNotificationSettingState();
+  State<SubNotificationSetting> createState() =>
+      _SubNotificationSettingState();
 }
 
 class _SubNotificationSettingState extends State<SubNotificationSetting> {
@@ -15,44 +17,32 @@ class _SubNotificationSettingState extends State<SubNotificationSetting> {
 
   @override
   Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
+    String t(String key) => AppTranslations.tr(context, key);
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        CircleAvatar(
-          radius: 50,
-          backgroundColor: scheme.secondaryContainer,
-          child: Icon(Icons.notifications,
-              size: 50, color: scheme.onSecondaryContainer),
-        ),
-        const SizedBox(height: 16),
-        Text(
-          AppTranslations.tr(context, 'notification'),
-          textAlign: TextAlign.center,
-          style: textTheme.headlineSmall,
-        ),
+        SubSettingHeader(icon: Icons.notifications, title: t('notification')),
         const SizedBox(height: 24),
         Card(
           child: Column(
             children: [
               SwitchListTile(
-                title: Text(AppTranslations.tr(context, 'push_notification')),
-                subtitle: Text(AppTranslations.tr(context, 'push_notification_desc')),
+                title: Text(t('push_notification')),
+                subtitle: Text(t('push_notification_desc')),
                 value: _pushEnabled,
                 onChanged: (val) => setState(() => _pushEnabled = val),
               ),
               const Divider(height: 1),
               SwitchListTile(
-                title: Text(AppTranslations.tr(context, 'email_notification')),
-                subtitle: Text(AppTranslations.tr(context, 'email_notification_desc')),
+                title: Text(t('email_notification')),
+                subtitle: Text(t('email_notification_desc')),
                 value: _emailEnabled,
                 onChanged: (val) => setState(() => _emailEnabled = val),
               ),
               const Divider(height: 1),
               SwitchListTile(
-                title: Text(AppTranslations.tr(context, 'sms_notification')),
-                subtitle: Text(AppTranslations.tr(context, 'sms_notification_desc')),
+                title: Text(t('sms_notification')),
+                subtitle: Text(t('sms_notification_desc')),
                 value: _smsEnabled,
                 onChanged: (val) => setState(() => _smsEnabled = val),
               ),

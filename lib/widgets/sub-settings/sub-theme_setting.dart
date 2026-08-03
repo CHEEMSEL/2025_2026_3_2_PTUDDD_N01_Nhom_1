@@ -11,10 +11,10 @@ class SubThemeSetting extends StatefulWidget {
 }
 
 class _SubThemeSettingState extends State<SubThemeSetting> {
-  String selectedTheme = 'light';
-  Color chatAccentColor = Colors.blue;
+  String _selectedTheme = 'light';
+  Color _accentColor = Colors.blue;
 
-  final List<Color> themeColors = [
+  static const _themeColors = [
     Colors.blue,
     Colors.purple,
     Colors.teal,
@@ -23,7 +23,7 @@ class _SubThemeSettingState extends State<SubThemeSetting> {
     Colors.green,
   ];
 
-  final List<Map<String, String>> supportedLanguages = [
+  static const _languages = [
     {'code': 'vi', 'name': 'Tiếng Việt', 'flag': '🇻🇳'},
     {'code': 'en', 'name': 'English', 'flag': '🇺🇸'},
     {'code': 'ja', 'name': '日本語', 'flag': '🇯🇵'},
@@ -33,63 +33,66 @@ class _SubThemeSettingState extends State<SubThemeSetting> {
 
   @override
   Widget build(BuildContext context) {
-    final langProvider = Provider.of<LanguageProvider>(context);
-    final langCode = langProvider.currentLangCode;
-
-    final currentLangMap = supportedLanguages.firstWhere(
-      (element) => element['code'] == langCode,
-      orElse: () => supportedLanguages.first,
+    final langCode = Provider.of<LanguageProvider>(context).currentLangCode;
+    String t(String key) => AppTranslations.getText(key, langCode);
+    final currentLang = _languages.firstWhere(
+      (e) => e['code'] == langCode,
+      orElse: () => _languages.first,
     );
 
     return Scaffold(
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         children: [
-          headerTheme(AppTranslations.getText('screen_mode', langCode)),
+          _SectionTitle(t('screen_mode')),
           const SizedBox(height: 8),
           Row(
             children: [
-              buildThemeCard(
-                title: AppTranslations.getText('light', langCode),
+              _ThemeCard(
+                title: t('light'),
                 icon: Icons.light_mode_outlined,
-                value: 'light',
-                isDarkPreview: false,
+                selected: _selectedTheme == 'light',
+                onTap: () => setState(() => _selectedTheme = 'light'),
               ),
-              const SizedBox(width: 12),
-              buildThemeCard(
-                title: AppTranslations.getText('dark', langCode),
+              const SizedBox(height: 12),
+              _ThemeCard(
+                title: t('dark'),
                 icon: Icons.dark_mode_outlined,
-                value: 'dark',
-                isDarkPreview: true,
+                selected: _selectedTheme == 'dark',
+                dark: true,
+                onTap: () => setState(() => _selectedTheme = 'dark'),
               ),
-              const SizedBox(width: 12),
-              buildThemeCard(
-                title: AppTranslations.getText('system', langCode),
+              const SizedBox(height: 12),
+              _ThemeCard(
+                title: t('system'),
                 icon: Icons.settings_brightness_outlined,
-                value: 'system',
-                isSystemPreview: true,
+                selected: _selectedTheme == 'system',
+                dark: true,
+                onTap: () => setState(() => _selectedTheme = 'system'),
               ),
             ],
           ),
           const SizedBox(height: 24),
-          headerTheme(AppTranslations.getText('chat_color', langCode)),
+          _SectionTitle(t('chat_color')),
           const SizedBox(height: 8),
           Card(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    width: double.infinity,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 16, vertical: 12),
                     decoration: BoxDecoration(
                       color: Theme.of(context).brightness == Brightness.dark
                           ? Theme.of(context).colorScheme.inverseSurface
-                          : Theme.of(context).colorScheme.surfaceContainerHighest,
+                          : Theme.of(context)
+                              .colorScheme
+                              .surfaceContainerHighest,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Row(
@@ -99,7 +102,7 @@ class _SubThemeSettingState extends State<SubThemeSetting> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 14, vertical: 8),
                           decoration: BoxDecoration(
-                            color: chatAccentColor,
+                            color: _accentColor,
                             border: Border.all(
                               color: Theme.of(context).colorScheme.outline,
                               width: 1.5,
@@ -112,7 +115,7 @@ class _SubThemeSettingState extends State<SubThemeSetting> {
                             ),
                           ),
                           child: Text(
-                            AppTranslations.getText('chat_preview', langCode),
+                            t('chat_preview'),
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 13,
@@ -128,22 +131,17 @@ class _SubThemeSettingState extends State<SubThemeSetting> {
                     height: 40,
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
-                      itemCount: themeColors.length,
+                      itemCount: _themeColors.length,
                       separatorBuilder: (context, index) =>
                           const SizedBox(width: 12),
                       itemBuilder: (context, index) {
-                        final color = themeColors[index];
-                        final isSelected = chatAccentColor == color;
+                        final color = _themeColors[index];
                         return GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              chatAccentColor = color;
-                            });
-                          },
+                          onTap: () => setState(() => _accentColor = color),
                           child: CircleAvatar(
                             radius: 18,
                             backgroundColor: color,
-                            child: isSelected
+                            child: _accentColor == color
                                 ? const Icon(Icons.check,
                                     color: Colors.white, size: 18)
                                 : null,
@@ -157,22 +155,21 @@ class _SubThemeSettingState extends State<SubThemeSetting> {
             ),
           ),
           const SizedBox(height: 24),
-          headerTheme(AppTranslations.getText('language', langCode)),
+          _SectionTitle(t('language')),
           const SizedBox(height: 8),
           Card(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
             child: ListTile(
               leading: const Icon(Icons.language),
-              title: Text(AppTranslations.getText('language', langCode)),
+              title: Text(t('language')),
               subtitle: Text(
-                currentLangMap['name']!,
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
+                currentLang['name']!,
+                style: TextStyle(color: Theme.of(context).colorScheme.primary),
               ),
               trailing: const Icon(Icons.chevron_right),
-              onTap: () => showLanguageBottomSheet(context),
+              onTap: () => _showLanguageSheet(context),
             ),
           ),
           const SizedBox(height: 24),
@@ -181,7 +178,7 @@ class _SubThemeSettingState extends State<SubThemeSetting> {
     );
   }
 
-  void showLanguageBottomSheet(BuildContext context) {
+  void _showLanguageSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -189,37 +186,34 @@ class _SubThemeSettingState extends State<SubThemeSetting> {
       ),
       builder: (context) {
         return StatefulBuilder(
-          builder: (BuildContext context, StateSetter setModalState) {
+          builder: (context, setModalState) {
             final langProvider = Provider.of<LanguageProvider>(context);
             final currentLang = langProvider.currentLangCode;
+            String t(String key) => AppTranslations.getText(key, currentLang);
 
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    AppTranslations.getText('choose_language', currentLang),
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
+                  Text(t('choose_language'),
+                      style: Theme.of(context).textTheme.titleMedium),
                   const SizedBox(height: 12),
                   Flexible(
                     child: ListView.builder(
                       shrinkWrap: true,
-                      itemCount: supportedLanguages.length,
+                      itemCount: _languages.length,
                       itemBuilder: (context, index) {
-                        final lang = supportedLanguages[index];
+                        final lang = _languages[index];
                         final isSelected = currentLang == lang['code'];
-
                         return ListTile(
-                          leading: Text(
-                            lang['flag']!,
-                            style: const TextStyle(fontSize: 24),
-                          ),
+                          leading: Text(lang['flag']!,
+                              style: const TextStyle(fontSize: 24)),
                           title: Text(lang['name']!),
                           trailing: isSelected
                               ? Icon(Icons.check_circle,
-                                  color: Theme.of(context).colorScheme.primary)
+                                  color:
+                                      Theme.of(context).colorScheme.primary)
                               : null,
                           onTap: () {
                             langProvider.changeLanguage(lang['code']!);
@@ -238,64 +232,56 @@ class _SubThemeSettingState extends State<SubThemeSetting> {
       },
     );
   }
+}
 
-  Widget buildThemeCard({
-    required String title,
-    required IconData icon,
-    required String value,
-    bool isDarkPreview = false,
-    bool isSystemPreview = false,
-  }) {
-    final bool isSelected = selectedTheme == value;
+class _ThemeCard extends StatelessWidget {
+  final String title;
+  final IconData icon;
+  final bool selected;
+  final bool dark;
+  final VoidCallback onTap;
 
+  const _ThemeCard({
+    required this.title,
+    required this.icon,
+    required this.selected,
+    this.dark = false,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
     return Expanded(
       child: GestureDetector(
-        onTap: () {
-          setState(() {
-            selectedTheme = value;
-          });
-        },
+        onTap: onTap,
         child: Container(
           height: 100,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
-              color: isSelected
-                  ? Theme.of(context).colorScheme.primary
-                  : Theme.of(context).colorScheme.outlineVariant,
-              width: isSelected ? 2 : 1,
+              color: selected ? scheme.primary : scheme.outlineVariant,
+              width: selected ? 2 : 1,
             ),
-            color: isDarkPreview || isSystemPreview
-                ? Theme.of(context).colorScheme.inverseSurface
-                : Theme.of(context).colorScheme.surfaceContainerHighest,
+            color: dark ? scheme.inverseSurface : scheme.surfaceContainerHighest,
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                icon,
-                color: isDarkPreview || isSystemPreview
-                    ? Theme.of(context).colorScheme.onInverseSurface
-                    : Theme.of(context).colorScheme.onSurface,
-              ),
+              Icon(icon,
+                  color: dark ? scheme.onInverseSurface : scheme.onSurface),
               const SizedBox(height: 8),
               Text(
                 title,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 13,
-                  color: isDarkPreview || isSystemPreview
-                      ? Theme.of(context).colorScheme.onInverseSurface
-                      : Theme.of(context).colorScheme.onSurface,
+                  color: dark ? scheme.onInverseSurface : scheme.onSurface,
                 ),
               ),
-              if (isSelected) ...[
+              if (selected) ...[
                 const SizedBox(height: 4),
-                Icon(
-                  Icons.check_circle,
-                  color: Theme.of(context).colorScheme.primary,
-                  size: 16,
-                ),
+                Icon(Icons.check_circle, color: scheme.primary, size: 16),
               ]
             ],
           ),
@@ -303,8 +289,15 @@ class _SubThemeSettingState extends State<SubThemeSetting> {
       ),
     );
   }
+}
 
-  Widget headerTheme(String title) {
+class _SectionTitle extends StatelessWidget {
+  final String title;
+
+  const _SectionTitle(this.title);
+
+  @override
+  Widget build(BuildContext context) {
     return Text(
       title,
       style: Theme.of(context).textTheme.titleSmall?.copyWith(
