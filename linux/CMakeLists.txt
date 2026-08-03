@@ -43,7 +43,14 @@ function(APPLY_STANDARD_SETTINGS TARGET)
   target_compile_features(${TARGET} PUBLIC cxx_std_14)
   target_compile_options(${TARGET} PRIVATE -Wall -Werror)
   target_compile_options(${TARGET} PRIVATE "$<$<NOT:$<CONFIG:Debug>>:-O3>")
+  target_compile_options(${TARGET} PRIVATE "$<$<NOT:$<CONFIG:Debug>>:-ffunction-sections>")
+  target_compile_options(${TARGET} PRIVATE "$<$<NOT:$<CONFIG:Debug>>:-fdata-sections>")
   target_compile_definitions(${TARGET} PRIVATE "$<$<NOT:$<CONFIG:Debug>>:NDEBUG>")
+  if(NOT APPLE)
+    # Loại bỏ section không dùng + strip symbols ở release để giảm bộ nhớ & APK/binary size.
+    target_link_options(${TARGET} PRIVATE "$<$<NOT:$<CONFIG:Debug>>:-Wl,--gc-sections>")
+    target_link_options(${TARGET} PRIVATE "$<$<NOT:$<CONFIG:Debug>>:-Wl,-s>")
+  endif()
 endfunction()
 
 # Flutter library and tool build rules.

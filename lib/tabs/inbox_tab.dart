@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:app/langs/language_dict.dart';
 import 'package:app/data/data_loader.dart';
@@ -66,6 +67,7 @@ class _AnimatedItem extends StatefulWidget {
 
 class _AnimatedItemState extends State<_AnimatedItem>
     with SingleTickerProviderStateMixin {
+  Timer? _timer;
   late final AnimationController _controller = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 300),
@@ -78,7 +80,7 @@ class _AnimatedItemState extends State<_AnimatedItem>
   @override
   void initState() {
     super.initState();
-    Future.delayed(
+    _timer = Timer(
       Duration(milliseconds: 250 + widget.index * 35),
       () {
         if (mounted) _controller.forward();
@@ -88,6 +90,7 @@ class _AnimatedItemState extends State<_AnimatedItem>
 
   @override
   void dispose() {
+    _timer?.cancel();
     _controller.dispose();
     super.dispose();
   }

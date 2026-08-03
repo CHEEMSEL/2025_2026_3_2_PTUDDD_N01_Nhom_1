@@ -35,14 +35,17 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     String t(String key) => AppTranslations.tr(context, key);
     _tabCache[selectedIndex] ??= _buildTab(selectedIndex);
-    final tabs =
-        List.generate(4, (index) => _tabCache[index] ?? const SizedBox.shrink());
+    final tabs = List.generate(
+      4,
+      (index) => _tabCache[index] ?? const SizedBox.shrink(),
+    );
 
     return Scaffold(
       body: Stack(
         children: [
           Positioned.fill(
-              child: IndexedStack(index: selectedIndex, children: tabs)),
+            child: IndexedStack(index: selectedIndex, children: tabs),
+          ),
           Positioned(
             left: 0,
             right: 0,
