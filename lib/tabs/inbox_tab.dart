@@ -30,9 +30,13 @@ class InboxTab extends StatelessWidget {
               icon: const Icon(Icons.view_headline_rounded), onPressed: () {}),
         ],
       ),
-      body: ListView.builder(
-        itemCount: _inbox.length,
-        itemBuilder: (context, index) => _InboxTile(item: _inbox[index]),
+      body: SafeArea(
+        top: false,
+        minimum: const EdgeInsets.only(bottom: 0),
+        child: ListView.builder(
+          itemCount: _inbox.length,
+          itemBuilder: (context, index) => _InboxTile(item: _inbox[index]),
+        ),
       ),
     );
   }

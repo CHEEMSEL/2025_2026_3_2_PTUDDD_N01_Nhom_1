@@ -28,23 +28,27 @@ class SettingTab extends StatelessWidget {
     String t(String key) => AppTranslations.tr(context, key);
     return Scaffold(
       appBar: AppBar(title: Text(t('settings'))),
-      body: ListView(
-        children: [
-          for (final (icon, labelKey, screen) in _settings)
-            SettingItem(
-              icon: icon,
-              title: t(labelKey),
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => SubSettingScreen(
-                    title: t(labelKey),
-                    child: screen,
+      body: SafeArea(
+        top: false,
+        minimum: const EdgeInsets.only(bottom: 0),
+        child: ListView(
+          children: [
+            for (final (icon, labelKey, screen) in _settings)
+              SettingItem(
+                icon: icon,
+                title: t(labelKey),
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => SubSettingScreen(
+                      title: t(labelKey),
+                      child: screen,
+                    ),
                   ),
                 ),
               ),
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }

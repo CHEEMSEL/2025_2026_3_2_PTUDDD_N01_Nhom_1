@@ -46,11 +46,15 @@ class NotificationTab extends StatelessWidget {
           ),
         ],
       ),
-      body: ListView.separated(
-        separatorBuilder: (context, index) => const Divider(height: 1),
-        itemCount: _notifications.length,
-        itemBuilder: (context, index) =>
-            _NotificationTile(item: _notifications[index]),
+      body: SafeArea(
+        top: false,
+        minimum: const EdgeInsets.only(bottom: 0),
+        child: ListView.separated(
+          separatorBuilder: (context, index) => const Divider(height: 1),
+          itemCount: _notifications.length,
+          itemBuilder: (context, index) =>
+              _NotificationTile(item: _notifications[index]),
+        ),
       ),
     );
   }

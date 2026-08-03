@@ -65,10 +65,14 @@ class _ContactTabState extends State<ContactTab> {
           ),
           const Divider(height: 20, thickness: 1),
           Expanded(
-            child: ListView.builder(
-              itemCount: _contacts.length,
-              itemBuilder: (context, index) =>
-                  _ContactTile(contact: _contacts[index]),
+            child: SafeArea(
+              top: false,
+              minimum: const EdgeInsets.only(bottom: 0),
+              child: ListView.builder(
+                itemCount: _contacts.length,
+                itemBuilder: (context, index) =>
+                    _ContactTile(contact: _contacts[index]),
+              ),
             ),
           ),
         ],
