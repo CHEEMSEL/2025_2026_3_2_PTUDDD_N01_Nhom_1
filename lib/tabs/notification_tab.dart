@@ -4,7 +4,8 @@ import 'package:app/langs/language_dict.dart';
 
 class NotificationTab extends StatelessWidget {
   const NotificationTab({super.key});
-  final List<Map<String, dynamic>> notifications = const [
+
+  static const _notifications = [
     {
       'type': 'friend_request',
       'title': 'Nguyễn Văn A',
@@ -30,73 +31,66 @@ class NotificationTab extends StatelessWidget {
       'read': false,
     },
   ];
+
   @override
   Widget build(BuildContext context) {
+    String t(String key) => AppTranslations.tr(context, key);
     return Scaffold(
-        appBar: AppBar(
-          title: Text(AppTranslations.tr(context, 'notifications')),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.done_all),
-              tooltip: AppTranslations.tr(context, 'mark_all_read'),
-              onPressed: () {},
-            ),
-          ],
-        ),
-        body: NotificationList(notifications: notifications));
+      appBar: AppBar(
+        title: Text(t('notifications')),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.done_all),
+            tooltip: t('mark_all_read'),
+            onPressed: () {},
+          ),
+        ],
+      ),
+      body: ListView.separated(
+        separatorBuilder: (context, index) => const Divider(height: 1),
+        itemCount: _notifications.length,
+        itemBuilder: (context, index) =>
+            _NotificationTile(item: _notifications[index]),
+      ),
+    );
   }
 }
 
-class NotificationList extends StatelessWidget {
-  final List<Map<String, dynamic>> notifications;
+class _NotificationTile extends StatelessWidget {
+  final Map<String, dynamic> item;
 
-  const NotificationList({super.key, required this.notifications});
+  const _NotificationTile({required this.item});
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      separatorBuilder: (context, index) => const Divider(height: 1),
-      itemCount: notifications.length,
-      itemBuilder: (context, index) {
-        final items = notifications[index];
-        return ListTile(
-          leading: CircleAvatar(
-            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-            child: Text(
-              items['avatar'] as String,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onPrimaryContainer,
-              ),
-            ),
-          ),
-          title: Text("${items['title']} - ${items['time']}",
-              style: TextStyle(
-                  color: items['read']
-                      ? Theme.of(context).colorScheme.onSurfaceVariant
-                      : Theme.of(context).colorScheme.onSurface)),
-          subtitle: Text(
-            items['subtitle'],
-            softWrap: true,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-                color: items['read']
-                    ? Theme.of(context).colorScheme.onSurfaceVariant
-                    : Theme.of(context).colorScheme.onSurface),
-          ),
-          trailing: Icon(
-            Icons.arrow_forward_ios,
-            color: items['read']
-                ? Theme.of(context).colorScheme.onSurfaceVariant
-                : Theme.of(context).colorScheme.onSurface,
-            size: 16,
-          ),
-          onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const NotifScreen()));
-          },
-        );
-      },
+    final scheme = Theme.of(context).colorScheme;
+    final read = item['read'] as bool;
+    final textColor = read ? scheme.onSurfaceVariant : scheme.onSurface;
+
+    return ListTile(
+      leading: CircleAvatar(
+        backgroundColor: scheme.primaryContainer,
+        child: Text(
+          item['avatar'] as String,
+          style: TextStyle(color: scheme.onPrimaryContainer),
+        ),
+      ),
+      title: Text(
+        "${item['title']} - ${item['time']}",
+        style: TextStyle(color: textColor),
+      ),
+      subtitle: Text(
+        item['subtitle'],
+        softWrap: true,
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
+        style: TextStyle(color: textColor),
+      ),
+      trailing: Icon(Icons.arrow_forward_ios, color: textColor, size: 16),
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const NotifScreen()),
+      ),
     );
   }
 }

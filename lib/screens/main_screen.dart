@@ -13,46 +13,34 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int slectedIndex = 0;
+  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+    String t(String key) => AppTranslations.tr(context, key);
     final tabs = [
-      Center(child: InboxTab()),
-      const Center(child: ContactTab()),
-      const Center(child: NotificationTab()),
-      const Center(child: SettingTab()),
+      const InboxTab(),
+      const ContactTab(),
+      const NotificationTab(),
+      const SettingTab(),
     ];
 
     return Scaffold(
-      body: IndexedStack(
-        index: slectedIndex,
-        children: tabs,
-      ),
+      body: IndexedStack(index: selectedIndex, children: tabs),
       bottomNavigationBar: NavigationBar(
-        selectedIndex: slectedIndex,
-        onDestinationSelected: (index) {
-          setState(() {
-            slectedIndex = index;
-          });
-        },
+        selectedIndex: selectedIndex,
+        onDestinationSelected: (index) =>
+            setState(() => selectedIndex = index),
         destinations: [
           NavigationDestination(
-            icon: const Icon(Icons.message),
-            label: AppTranslations.tr(context, 'messages'),
-          ),
+              icon: const Icon(Icons.message), label: t('messages')),
           NavigationDestination(
-            icon: const Icon(Icons.person_pin),
-            label: AppTranslations.tr(context, 'contact'),
-          ),
+              icon: const Icon(Icons.person_pin), label: t('contact')),
           NavigationDestination(
-            icon: const Icon(Icons.notifications),
-            label: AppTranslations.tr(context, 'notifications'),
-          ),
+              icon: const Icon(Icons.notifications),
+              label: t('notifications')),
           NavigationDestination(
-            icon: const Icon(Icons.settings),
-            label: AppTranslations.tr(context, 'settings'),
-          ),
+              icon: const Icon(Icons.settings), label: t('settings')),
         ],
       ),
     );
