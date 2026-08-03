@@ -14,16 +14,29 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int selectedIndex = 0;
+  final _tabCache = <Widget?>[null, null, null, null];
+
+  Widget _buildTab(int index) {
+    switch (index) {
+      case 0:
+        return const InboxTab();
+      case 1:
+        return const ContactTab();
+      case 2:
+        return const NotificationTab();
+      case 3:
+        return const SettingTab();
+      default:
+        return const SizedBox.shrink();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     String t(String key) => AppTranslations.tr(context, key);
-    final tabs = [
-      const InboxTab(),
-      const ContactTab(),
-      const NotificationTab(),
-      const SettingTab(),
-    ];
+    _tabCache[selectedIndex] ??= _buildTab(selectedIndex);
+    final tabs =
+        List.generate(4, (index) => _tabCache[index] ?? const SizedBox.shrink());
 
     return Scaffold(
       body: Stack(
