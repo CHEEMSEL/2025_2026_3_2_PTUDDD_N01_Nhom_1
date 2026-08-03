@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:app/langs/language_controller.dart';
+import 'package:app/langs/theme_provider.dart';
 import 'package:app/langs/language_dict.dart';
 
 class SubThemeSetting extends StatefulWidget {
@@ -11,7 +12,6 @@ class SubThemeSetting extends StatefulWidget {
 }
 
 class _SubThemeSettingState extends State<SubThemeSetting> {
-  String _selectedTheme = 'light';
   Color _accentColor = Colors.blue;
 
   static const _themeColors = [
@@ -34,6 +34,12 @@ class _SubThemeSettingState extends State<SubThemeSetting> {
   @override
   Widget build(BuildContext context) {
     final langCode = Provider.of<LanguageProvider>(context).currentLangCode;
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    final selectedMode = switch (themeProvider.themeMode) {
+      ThemeMode.light => 'light',
+      ThemeMode.dark => 'dark',
+      ThemeMode.system => 'system',
+    };
     String t(String key) => AppTranslations.getText(key, langCode);
     final currentLang = _languages.firstWhere(
       (e) => e['code'] == langCode,
@@ -51,24 +57,27 @@ class _SubThemeSettingState extends State<SubThemeSetting> {
               _ThemeCard(
                 title: t('light'),
                 icon: Icons.light_mode_outlined,
-                selected: _selectedTheme == 'light',
-                onTap: () => setState(() => _selectedTheme = 'light'),
+                selected: selectedMode == 'light',
+                onTap: () =>
+                    themeProvider.setThemeMode(ThemeMode.light),
               ),
               const SizedBox(height: 12),
               _ThemeCard(
                 title: t('dark'),
                 icon: Icons.dark_mode_outlined,
-                selected: _selectedTheme == 'dark',
+                selected: selectedMode == 'dark',
                 dark: true,
-                onTap: () => setState(() => _selectedTheme = 'dark'),
+                onTap: () =>
+                    themeProvider.setThemeMode(ThemeMode.dark),
               ),
               const SizedBox(height: 12),
               _ThemeCard(
                 title: t('system'),
                 icon: Icons.settings_brightness_outlined,
-                selected: _selectedTheme == 'system',
+                selected: selectedMode == 'system',
                 dark: true,
-                onTap: () => setState(() => _selectedTheme = 'system'),
+                onTap: () =>
+                    themeProvider.setThemeMode(ThemeMode.system),
               ),
             ],
           ),

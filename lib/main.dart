@@ -3,14 +3,19 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'langs/language_controller.dart';
+import 'langs/theme_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final languageProvider = await LanguageProvider.load();
+  final themeProvider = await ThemeProvider.load();
 
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => languageProvider,
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => languageProvider),
+        ChangeNotifierProvider(create: (_) => themeProvider),
+      ],
       child: const MyApp(),
     ),
   );
@@ -22,6 +27,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langProvider = Provider.of<LanguageProvider>(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
 
     return DynamicColorBuilder(
       builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
@@ -40,7 +46,7 @@ class MyApp extends StatelessWidget {
           locale: langProvider.currentLocale,
           theme: ThemeData(useMaterial3: true, colorScheme: lightScheme),
           darkTheme: ThemeData(useMaterial3: true, colorScheme: darkScheme),
-          themeMode: ThemeMode.system,
+          themeMode: themeProvider.themeMode,
           home: const LoginScreen(),
         );
       },
