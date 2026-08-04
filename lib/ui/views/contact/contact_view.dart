@@ -3,6 +3,7 @@ import '../../../data/models/user_model.dart';
 import '../../../data/repositories/chat_repository.dart';
 import '../../../shared/localization/language_dict.dart';
 import '../../widgets/contact/contact_tile.dart';
+import '../../widgets/home/dock_metrics.dart';
 import '../../widgets/home/floating_dock.dart';
 
 /// Màn hình danh sách liên hệ.
@@ -59,11 +60,28 @@ class ContactView extends StatelessWidget {
                 child: SafeArea(
                   top: false,
                   minimum: const EdgeInsets.only(bottom: 0),
-                  child: ListView.builder(
-                    padding: const EdgeInsets.only(bottom: kDockScrollPadding),
-                    itemCount: contacts.length,
-                    itemBuilder: (context, index) =>
-                        ContactTile(contact: contacts[index]),
+                  child: Stack(
+                    children: [
+                      Positioned.fill(
+                        child: ListView.builder(
+                          padding: const EdgeInsets.only(
+                              bottom: kDockScrollPadding),
+                          itemCount: contacts.length,
+                          itemBuilder: (context, index) =>
+                              ContactTile(contact: contacts[index]),
+                        ),
+                      ),
+                      Positioned(
+                        right: 16,
+                        bottom: DockMetrics.of(context) + 2 * kDockBottomInset,
+                        child: FloatingActionButton(
+                          onPressed: () {},
+                          tooltip: t('add_friend'),
+                          shape: const CircleBorder(),
+                          child: const Icon(Icons.person_add),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),

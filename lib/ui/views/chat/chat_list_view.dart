@@ -5,6 +5,7 @@ import '../../../logic/chat/chat_cubit.dart';
 import '../../../logic/chat/chat_state.dart';
 import '../../../shared/localization/language_dict.dart';
 import '../../widgets/chat/inbox_tile.dart';
+import '../../widgets/home/dock_metrics.dart';
 import '../../widgets/home/floating_dock.dart';
 import 'search_view.dart';
 
@@ -43,25 +44,42 @@ class _ChatListViewState extends State<ChatListView> {
       body: SafeArea(
         top: false,
         minimum: const EdgeInsets.only(bottom: 0),
-        child: BlocBuilder<ChatCubit, ChatState>(
-          builder: (context, state) {
-            switch (state.status) {
-              case ChatStatus.loading:
-                return const Center(child: CircularProgressIndicator());
-              case ChatStatus.error:
-                return Center(child: Text(state.errorMessage ?? ''));
-              case ChatStatus.initial:
-              case ChatStatus.loaded:
-                return ListView.builder(
-                  padding: const EdgeInsets.only(bottom: kDockScrollPadding),
-                  itemCount: state.rooms.length,
-                  itemBuilder: (context, index) => _AnimatedItem(
-                    room: state.rooms[index],
-                    index: index,
-                  ),
-                );
-            }
-          },
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: BlocBuilder<ChatCubit, ChatState>(
+                builder: (context, state) {
+                  switch (state.status) {
+                    case ChatStatus.loading:
+                      return const Center(child: CircularProgressIndicator());
+                    case ChatStatus.error:
+                      return Center(child: Text(state.errorMessage ?? ''));
+                    case ChatStatus.initial:
+                    case ChatStatus.loaded:
+                      return ListView.builder(
+                        padding: const EdgeInsets.only(
+                            bottom: kDockScrollPadding),
+                        itemCount: state.rooms.length,
+                        itemBuilder: (context, index) => _AnimatedItem(
+                          room: state.rooms[index],
+                          index: index,
+                        ),
+                      );
+                  }
+                },
+              ),
+            ),
+            Positioned(
+              right: 16,
+              bottom: DockMetrics.of(context) + 2 * kDockBottomInset,
+              child: FloatingActionButton(
+                onPressed: () {},
+                tooltip: t('create_account'),
+                shape: const CircleBorder(),
+                child: const Icon(Icons.edit),
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../logic/auth/auth_cubit.dart';
 import '../../../shared/localization/language_dict.dart';
 import '../../widgets/custom_avatar.dart';
+import '../../widgets/home/dock_metrics.dart';
 import '../../widgets/home/floating_dock.dart';
 import '../chat/chat_list_view.dart';
 import '../contact/contact_view.dart';
@@ -20,6 +21,20 @@ class MainView extends StatefulWidget {
 class _MainViewState extends State<MainView> {
   int selectedIndex = 0;
   final _tabCache = <Widget?>[null, null, null, null];
+  final _dockKey = GlobalKey();
+  double _dockHeight = kDockHeight;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _measureDock());
+  }
+
+  void _measureDock() {
+    final size = _dockKey.currentContext?.size;
+    if (size == null || size.height == _dockHeight) return;
+    setState(() => _dockHeight = size.height);
+  }
 
   Widget _buildTab(int index) {
     switch (index) {
@@ -47,48 +62,52 @@ class _MainViewState extends State<MainView> {
       (index) => _tabCache[index] ?? const SizedBox.shrink(),
     );
 
-    return Scaffold(
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: IndexedStack(index: selectedIndex, children: tabs),
-          ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: SafeArea(
-              top: false,
-              minimum: const EdgeInsets.only(bottom: 16),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: LayoutBuilder(
-                  builder: (context, constraints) => ConstrainedBox(
-                    constraints: BoxConstraints(
-                        maxWidth: constraints.maxWidth - 20),
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: FloatingDock(
-                        selectedIndex: selectedIndex,
-                        onSelected: (index) =>
-                            setState(() => selectedIndex = index),
-                        items: [
-                          (const Icon(Icons.message), t('messages')),
-                          (const Icon(Icons.person_pin), t('contact')),
-                          (const Icon(Icons.notifications), t('notifications')),
-                          (
-                            CustomAvatar(name: username),
-                            t('profile')
-                          ),
-                        ],
+    return DockMetrics(
+      dockHeight: _dockHeight,
+      child: Scaffold(
+        body: Stack(
+          children: [
+            Positioned.fill(
+              child: IndexedStack(index: selectedIndex, children: tabs),
+            ),
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: SafeArea(
+                top: false,
+                minimum: const EdgeInsets.only(bottom: 16),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: LayoutBuilder(
+                    builder: (context, constraints) => ConstrainedBox(
+                      constraints: BoxConstraints(
+                          maxWidth: constraints.maxWidth - 20),
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: FloatingDock(
+                          key: _dockKey,
+                          selectedIndex: selectedIndex,
+                          onSelected: (index) =>
+                              setState(() => selectedIndex = index),
+                          items: [
+                            (const Icon(Icons.message), t('messages')),
+                            (const Icon(Icons.person_pin), t('contact')),
+                            (const Icon(Icons.notifications), t('notifications')),
+                            (
+                              CustomAvatar(name: username, radius: 12),
+                              t('profile')
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
