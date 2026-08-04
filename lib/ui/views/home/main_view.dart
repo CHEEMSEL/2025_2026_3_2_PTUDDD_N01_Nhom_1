@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../logic/auth/auth_cubit.dart';
 import '../../../shared/localization/language_dict.dart';
+import '../../widgets/custom_avatar.dart';
 import '../../widgets/home/floating_dock.dart';
 import '../chat/chat_list_view.dart';
 import '../contact/contact_view.dart';
 import '../notification/notification_view.dart';
-import '../settings/settings_view.dart';
+import '../user/user_view.dart';
 
 /// Màn hình chính chứa các tab và thanh điều hướng nổi.
 class MainView extends StatefulWidget {
@@ -27,7 +30,7 @@ class _MainViewState extends State<MainView> {
       case 2:
         return const NotificationView();
       case 3:
-        return const SettingsView();
+        return const UserView();
       default:
         return const SizedBox.shrink();
     }
@@ -36,6 +39,8 @@ class _MainViewState extends State<MainView> {
   @override
   Widget build(BuildContext context) {
     String t(String key) => AppTranslations.tr(context, key);
+    final username =
+        context.read<AuthCubit>().state.currentUser?.username ?? '?';
     _tabCache[selectedIndex] ??= _buildTab(selectedIndex);
     final tabs = List.generate(
       4,
@@ -68,10 +73,13 @@ class _MainViewState extends State<MainView> {
                         onSelected: (index) =>
                             setState(() => selectedIndex = index),
                         items: [
-                          (Icons.message, t('messages')),
-                          (Icons.person_pin, t('contact')),
-                          (Icons.notifications, t('notifications')),
-                          (Icons.settings, t('settings')),
+                          (const Icon(Icons.message), t('messages')),
+                          (const Icon(Icons.person_pin), t('contact')),
+                          (const Icon(Icons.notifications), t('notifications')),
+                          (
+                            CustomAvatar(name: username),
+                            t('profile')
+                          ),
                         ],
                       ),
                     ),

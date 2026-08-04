@@ -13,7 +13,7 @@ const double kDockScrollPadding = kDockHeight + 2 * kDockBottomInset;
 class FloatingDock extends StatelessWidget {
   final int selectedIndex;
   final ValueChanged<int> onSelected;
-  final List<(IconData, String)> items;
+  final List<(Widget, String)> items;
 
   const FloatingDock({
     super.key,
@@ -52,7 +52,7 @@ class FloatingDock extends StatelessWidget {
 
 class _DockItem extends StatelessWidget {
   final bool selected;
-  final IconData icon;
+  final Widget icon;
   final String label;
   final VoidCallback onTap;
 
@@ -83,7 +83,7 @@ class _DockItem extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, color: onColor),
+            icon,
             const SizedBox(height: 4),
             Text(
               label,

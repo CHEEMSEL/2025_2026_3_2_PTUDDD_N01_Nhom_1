@@ -7,6 +7,9 @@ class AppTranslations {
     'vi': {
       'app_title': 'Ứng dụng của tôi',
       'settings': 'Cài đặt',
+      'profile': 'Hồ sơ',
+      'logout': 'Đăng xuất',
+      'logout_confirm': 'Bạn có chắc muốn đăng xuất không?',
       'language': 'Ngôn ngữ',
       'chat_preview': 'Đoạn chat preview!',
       'login': 'Đăng nhập',
@@ -118,6 +121,9 @@ class AppTranslations {
     'en': {
       'app_title': 'My Application',
       'settings': 'Settings',
+      'profile': 'Profile',
+      'logout': 'Log Out',
+      'logout_confirm': 'Are you sure you want to log out?',
       'language': 'Language',
       'chat_preview': 'Chat preview!',
       'login': 'Login',
@@ -229,6 +235,9 @@ class AppTranslations {
     'ja': {
       'app_title': 'マイアプリ',
       'settings': '設定',
+      'profile': 'プロフィール',
+      'logout': 'ログアウト',
+      'logout_confirm': 'ログアウトしますか？',
       'language': '言語',
       'chat_preview': 'チャットプレビュー！',
       'login': 'ログイン',
@@ -340,6 +349,9 @@ class AppTranslations {
     'ko': {
       'app_title': '내 앱',
       'settings': '설정',
+      'profile': '프로필',
+      'logout': '로그아웃',
+      'logout_confirm': '로그아웃하시겠습니까?',
       'language': '언어',
       'chat_preview': '채팅 미리보기!',
       'login': '로그인',
@@ -451,6 +463,9 @@ class AppTranslations {
     'zh': {
       'app_title': '我的应用',
       'settings': '设置',
+      'profile': '个人资料',
+      'logout': '退出登录',
+      'logout_confirm': '确定要退出登录吗？',
       'language': '语言',
       'chat_preview': '聊天预览！',
       'login': '登录',
