@@ -16,44 +16,40 @@ class InboxTile extends StatelessWidget {
     final unread = room.status == MessageStatus.unread;
     final readColor = unread ? scheme.onSurface : scheme.outline;
 
-    return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: ListTile(
-        leading: CustomAvatar(name: room.name),
-        title: Text(
-          room.name,
-          style: TextStyle(
-            color: readColor,
-            fontWeight: unread ? FontWeight.w600 : FontWeight.normal,
-          ),
+    return ListTile(
+      leading: CustomAvatar(name: room.name),
+      title: Text(
+        room.name,
+        style: TextStyle(
+          color: readColor,
+          fontWeight: unread ? FontWeight.w600 : FontWeight.normal,
         ),
-        subtitle: Text(
-          room.lastMessage,
-          style: TextStyle(
-            color: readColor,
-            fontWeight: unread ? FontWeight.w600 : FontWeight.normal,
-          ),
+      ),
+      subtitle: Text(
+        room.lastMessage,
+        style: TextStyle(
+          color: readColor,
+          fontWeight: unread ? FontWeight.w600 : FontWeight.normal,
         ),
-        trailing: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(DateFormatter.formatTime(DateTime.now())),
-            const SizedBox(height: 7),
-            switch (room.status) {
-              MessageStatus.unread => Icon(Icons.circle, color: scheme.primary, size: 15),
-              MessageStatus.read => Icon(Icons.task_alt, color: scheme.outline, size: 15),
-              MessageStatus.sending => Icon(Icons.timer, color: scheme.tertiary, size: 15),
-            },
-          ],
-        ),
-        onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ChatRoomView(
-              roomId: room.id,
-              username: room.name,
-            ),
+      ),
+      trailing: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(DateFormatter.formatTime(DateTime.now())),
+          const SizedBox(height: 7),
+          switch (room.status) {
+            MessageStatus.unread => Icon(Icons.circle, color: scheme.primary, size: 15),
+            MessageStatus.read => Icon(Icons.task_alt, color: scheme.outline, size: 15),
+            MessageStatus.sending => Icon(Icons.timer, color: scheme.tertiary, size: 15),
+          },
+        ],
+      ),
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ChatRoomView(
+            roomId: room.id,
+            username: room.name,
           ),
         ),
       ),
