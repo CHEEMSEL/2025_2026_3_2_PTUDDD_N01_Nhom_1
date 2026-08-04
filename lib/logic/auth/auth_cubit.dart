@@ -66,6 +66,11 @@ class AuthCubit extends Cubit<AuthState> {
     );
   }
 
+  /// Đăng xuất, đưa về trạng thái ban đầu.
+  void logout() {
+    emit(const AuthState.initial());
+  }
+
   /// Lưu lại thông tin tài khoản khi người dùng chỉnh sửa trong Cài đặt.
   Future<void> updateProfile(AccountModel updated) async {
     await _repository.updateProfile(updated);
