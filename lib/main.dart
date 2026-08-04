@@ -1,9 +1,14 @@
-import 'package:app/screens/login_screen.dart';
+import 'package:app/data/repositories/chat_repository.dart';
+import 'package:app/logic/auth/auth_cubit.dart';
+import 'package:app/logic/chat/chat_cubit.dart';
+import 'package:app/logic/settings/language_provider.dart';
+import 'package:app/logic/settings/theme_provider.dart';
+import 'package:app/shared/constants/app_colors.dart';
+import 'package:app/ui/views/auth/login_view.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'langs/language_controller.dart';
-import 'langs/theme_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,27 +34,33 @@ class MyApp extends StatelessWidget {
     final langProvider = Provider.of<LanguageProvider>(context);
     final themeProvider = Provider.of<ThemeProvider>(context);
 
-    return DynamicColorBuilder(
-      builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
-        final lightScheme =
-            lightDynamic?.harmonized() ??
-            ColorScheme.fromSeed(seedColor: Colors.blue);
-        final darkScheme =
-            darkDynamic?.harmonized() ??
-            ColorScheme.fromSeed(
-              seedColor: Colors.blue,
-              brightness: Brightness.dark,
-            );
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => AuthCubit()),
+        BlocProvider(create: (_) => ChatCubit(ChatRepository())),
+      ],
+      child: DynamicColorBuilder(
+        builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
+          final lightScheme =
+              lightDynamic?.harmonized() ??
+              ColorScheme.fromSeed(seedColor: AppColors.seed);
+          final darkScheme =
+              darkDynamic?.harmonized() ??
+              ColorScheme.fromSeed(
+                seedColor: AppColors.seed,
+                brightness: Brightness.dark,
+              );
 
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          locale: langProvider.currentLocale,
-          theme: ThemeData(useMaterial3: true, colorScheme: lightScheme),
-          darkTheme: ThemeData(useMaterial3: true, colorScheme: darkScheme),
-          themeMode: themeProvider.themeMode,
-          home: const LoginScreen(),
-        );
-      },
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            locale: langProvider.currentLocale,
+            theme: ThemeData(useMaterial3: true, colorScheme: lightScheme),
+            darkTheme: ThemeData(useMaterial3: true, colorScheme: darkScheme),
+            themeMode: themeProvider.themeMode,
+            home: const LoginView(),
+          );
+        },
+      ),
     );
   }
 }
