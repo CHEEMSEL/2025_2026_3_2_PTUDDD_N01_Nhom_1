@@ -22,7 +22,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
   final _fullNameController = TextEditingController();
   final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
-  final _birthdayController = TextEditingController();
+  DateTime? _birthday;
   String _gender = '';
 
   @override
@@ -33,8 +33,27 @@ class _CreateAccountViewState extends State<CreateAccountView> {
     _fullNameController.dispose();
     _emailController.dispose();
     _phoneController.dispose();
-    _birthdayController.dispose();
     super.dispose();
+  }
+
+  Future<void> _pickBirthday() async {
+    final now = DateTime.now();
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: _birthday ?? DateTime(now.year - 18, now.month, now.day),
+      firstDate: DateTime(1900),
+      lastDate: now,
+      helpText: AppTranslations.tr(context, 'birthday'),
+    );
+    if (picked != null) {
+      setState(() => _birthday = picked);
+    }
+  }
+
+  String _formatDate(DateTime date) {
+    final d = date.day.toString().padLeft(2, '0');
+    final m = date.month.toString().padLeft(2, '0');
+    return '$d/$m/${date.year}';
   }
 
   void _createAccount() {
@@ -45,7 +64,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
           fullName: _fullNameController.text,
           email: _emailController.text,
           phone: _phoneController.text,
-          birthday: _birthdayController.text,
+          birthday: _birthday == null ? '' : _formatDate(_birthday!),
           gender: _gender,
         );
   }
@@ -146,10 +165,36 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                       controller: _phoneController,
                     ),
                     const SizedBox(height: 16),
-                    AuthField(
-                      label: t('birthday'),
-                      hint: t('input_birthday'),
-                      controller: _birthdayController,
+                    InkWell(
+                      onTap: _pickBirthday,
+                      borderRadius: BorderRadius.circular(4),
+                      child: InputDecorator(
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 14,
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.calendar_today),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Text(
+                                _birthday == null
+                                    ? t('input_birthday')
+                                    : _formatDate(_birthday!),
+                                style: _birthday == null
+                                    ? TextStyle(
+                                        color: Theme.of(context)
+                                            .hintColor)
+                                    : null,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                     const SizedBox(height: 16),
                     DropdownButtonFormField<String>(

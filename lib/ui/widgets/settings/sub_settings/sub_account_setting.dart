@@ -18,8 +18,39 @@ class _SubAccountSettingState extends State<SubAccountSetting> {
   late final TextEditingController _fullNameController;
   late final TextEditingController _emailController;
   late final TextEditingController _phoneController;
-  late final TextEditingController _birthdayController;
+  DateTime? _birthday;
   String _gender = '';
+
+  DateTime? _parseDate(String? text) {
+    if (text == null || text.isEmpty) return null;
+    final parts = text.split('/');
+    if (parts.length != 3) return null;
+    final day = int.tryParse(parts[0]);
+    final month = int.tryParse(parts[1]);
+    final year = int.tryParse(parts[2]);
+    if (day == null || month == null || year == null) return null;
+    return DateTime(year, month, day);
+  }
+
+  String _formatDate(DateTime date) {
+    final d = date.day.toString().padLeft(2, '0');
+    final m = date.month.toString().padLeft(2, '0');
+    return '$d/$m/${date.year}';
+  }
+
+  Future<void> _pickBirthday() async {
+    final now = DateTime.now();
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: _birthday ?? DateTime(now.year - 18, now.month, now.day),
+      firstDate: DateTime(1900),
+      lastDate: now,
+      helpText: AppTranslations.tr(context, 'birthday'),
+    );
+    if (picked != null) {
+      setState(() => _birthday = picked);
+    }
+  }
 
   @override
   void initState() {
@@ -28,7 +59,7 @@ class _SubAccountSettingState extends State<SubAccountSetting> {
     _fullNameController = TextEditingController(text: user?.fullName ?? '');
     _emailController = TextEditingController(text: user?.email ?? '');
     _phoneController = TextEditingController(text: user?.phone ?? '');
-    _birthdayController = TextEditingController(text: user?.birthday ?? '');
+    _birthday = _parseDate(user?.birthday ?? '');
     _gender = user?.gender ?? '';
   }
 
@@ -37,7 +68,6 @@ class _SubAccountSettingState extends State<SubAccountSetting> {
     _fullNameController.dispose();
     _emailController.dispose();
     _phoneController.dispose();
-    _birthdayController.dispose();
     super.dispose();
   }
 
@@ -51,7 +81,7 @@ class _SubAccountSettingState extends State<SubAccountSetting> {
             fullName: _fullNameController.text.trim(),
             email: _emailController.text.trim(),
             phone: _phoneController.text.trim(),
-            birthday: _birthdayController.text.trim(),
+            birthday: _birthday == null ? '' : _formatDate(_birthday!),
             gender: _gender,
           ),
         );
@@ -116,10 +146,23 @@ class _SubAccountSettingState extends State<SubAccountSetting> {
                     controller: _phoneController,
                   ),
                   const SizedBox(height: 12),
-                  _field(
-                    icon: Icons.calendar_today,
-                    label: t('birthday'),
-                    controller: _birthdayController,
+                  InkWell(
+                    onTap: _pickBirthday,
+                    borderRadius: BorderRadius.circular(4),
+                    child: InputDecorator(
+                      decoration: const InputDecoration(
+                        prefixIcon: Icon(Icons.calendar_today),
+                        border: OutlineInputBorder(),
+                      ),
+                      child: Text(
+                        _birthday == null
+                            ? t('input_birthday')
+                            : _formatDate(_birthday!),
+                        style: _birthday == null
+                            ? TextStyle(color: Theme.of(context).hintColor)
+                            : null,
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 12),
                   DropdownButtonFormField<String>(
