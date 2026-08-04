@@ -6,6 +6,7 @@ import '../../../shared/constants/app_strings.dart';
 import '../../widgets/chat/chat_input.dart';
 import '../../widgets/chat/message_bubble.dart';
 import '../../widgets/custom_avatar.dart';
+import 'chat_info_view.dart';
 
 /// Màn hình khung chat chi tiết.
 class ChatRoomView extends StatefulWidget {
@@ -58,7 +59,18 @@ class _ChatRoomViewState extends State<ChatRoomView> {
             ),
             actions: [
               IconButton(icon: const Icon(Icons.call), onPressed: () {}),
-              IconButton(icon: const Icon(Icons.more_vert), onPressed: () {}),
+              IconButton(
+                icon: const Icon(Icons.info_outline),
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => ChatInfoView(
+                      roomId: widget.roomId,
+                      username: widget.username,
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
           body: Column(
