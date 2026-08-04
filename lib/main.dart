@@ -1,3 +1,4 @@
+import 'package:app/data/repositories/account_repository.dart';
 import 'package:app/data/repositories/chat_repository.dart';
 import 'package:app/logic/auth/auth_cubit.dart';
 import 'package:app/logic/chat/chat_cubit.dart';
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
 
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => AuthCubit()),
+        BlocProvider(create: (_) => AuthCubit(AccountRepository())),
         BlocProvider(create: (_) => ChatCubit(ChatRepository())),
       ],
       child: DynamicColorBuilder(

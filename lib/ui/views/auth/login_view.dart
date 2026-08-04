@@ -16,19 +16,19 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  final _emailController = TextEditingController();
+  final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
   @override
   void dispose() {
-    _emailController.dispose();
+    _usernameController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
 
   void _login() {
     context.read<AuthCubit>().login(
-          email: _emailController.text,
+          username: _usernameController.text,
           password: _passwordController.text,
         );
   }
@@ -51,6 +51,12 @@ class _LoginViewState extends State<LoginView> {
               FadeTransition(opacity: animation, child: child),
         ),
       );
+    } else if (state.status == AuthStatus.error) {
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(content: Text(AppTranslations.tr(context, 'auth_error'))),
+        );
     }
   }
 
@@ -63,9 +69,9 @@ class _LoginViewState extends State<LoginView> {
         title: t('login'),
         children: [
           AuthField(
-            label: t('gmail'),
-            hint: t('input_gmail'),
-            controller: _emailController,
+            label: t('username'),
+            hint: t('input_username'),
+            controller: _usernameController,
           ),
           const SizedBox(height: 20),
           AuthField(
