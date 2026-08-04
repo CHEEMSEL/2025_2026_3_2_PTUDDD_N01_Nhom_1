@@ -29,20 +29,22 @@ class FloatingDock extends StatelessWidget {
       color: scheme.surfaceContainer,
       elevation: 8,
       shadowColor: scheme.shadow.withValues(alpha: 0.4),
-      borderRadius: BorderRadius.circular(28),
+      borderRadius: BorderRadius.circular(kDockHeight),
       clipBehavior: Clip.antiAlias,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            for (var i = 0; i < items.length; i++)
+            for (var i = 0; i < items.length; i++) ...[
+              if (i > 0) const SizedBox(width: 4),
               _DockItem(
                 selected: i == selectedIndex,
                 icon: items[i].$1,
                 label: items[i].$2,
                 onTap: () => onSelected(i),
               ),
+            ],
           ],
         ),
       ),
@@ -70,15 +72,14 @@ class _DockItem extends StatelessWidget {
         selected ? scheme.onSecondaryContainer : scheme.onSurfaceVariant;
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: BorderRadius.circular(kDockHeight),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         curve: Curves.easeOut,
-        margin: const EdgeInsets.symmetric(horizontal: 4),
         padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
         decoration: BoxDecoration(
           color: selected ? scheme.secondaryContainer : Colors.transparent,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(kDockHeight),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
