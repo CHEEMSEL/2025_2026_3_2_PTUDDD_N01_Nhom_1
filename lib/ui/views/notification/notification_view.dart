@@ -3,6 +3,7 @@ import '../../../data/models/notification_model.dart';
 import '../../../data/repositories/chat_repository.dart';
 import '../../../shared/localization/language_dict.dart';
 import '../../widgets/notification/notification_tile.dart';
+import '../../widgets/home/floating_dock.dart';
 
 /// Tab Thông báo.
 class NotificationView extends StatelessWidget {
@@ -31,6 +32,7 @@ class NotificationView extends StatelessWidget {
             top: false,
             minimum: const EdgeInsets.only(bottom: 0),
             child: ListView.separated(
+              padding: const EdgeInsets.only(bottom: kDockScrollPadding),
               separatorBuilder: (context, index) => const Divider(height: 1),
               itemCount: items.length,
               itemBuilder: (context, index) =>

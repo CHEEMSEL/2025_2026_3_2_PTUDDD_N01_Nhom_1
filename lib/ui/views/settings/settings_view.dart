@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../shared/localization/language_dict.dart';
+import '../../widgets/home/floating_dock.dart';
 import '../../widgets/settings/setting_item.dart';
 import '../../widgets/settings/sub_settings/sub_about_setting.dart';
 import '../../widgets/settings/sub_settings/sub_account_setting.dart';
@@ -33,6 +34,7 @@ class SettingsView extends StatelessWidget {
         top: false,
         minimum: const EdgeInsets.only(bottom: 0),
         child: ListView(
+          padding: const EdgeInsets.only(bottom: kDockScrollPadding),
           children: [
             for (final (icon, labelKey, screen) in _settings)
               SettingItem(

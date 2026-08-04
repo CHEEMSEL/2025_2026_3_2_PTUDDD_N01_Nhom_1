@@ -1,5 +1,14 @@
 import 'package:flutter/material.dart';
 
+/// Chiều cao ước tính của thanh dock (icon + nhãn + padding).
+const double kDockHeight = 60;
+
+/// Khoảng cách giữa dock và đáy màn hình.
+const double kDockBottomInset = 16;
+
+/// Khoảng trống thêm cuối danh sách để scroll được tới hết nội dung.
+const double kDockScrollPadding = kDockHeight + 2 * kDockBottomInset;
+
 /// Thanh điều hướng nổi dạng dock ở đáy màn hình.
 class FloatingDock extends StatelessWidget {
   final int selectedIndex;

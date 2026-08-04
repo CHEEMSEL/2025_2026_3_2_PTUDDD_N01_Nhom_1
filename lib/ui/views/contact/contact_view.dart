@@ -3,6 +3,7 @@ import '../../../data/models/user_model.dart';
 import '../../../data/repositories/chat_repository.dart';
 import '../../../shared/localization/language_dict.dart';
 import '../../widgets/contact/contact_tile.dart';
+import '../../widgets/home/floating_dock.dart';
 
 /// Màn hình danh sách liên hệ.
 class ContactView extends StatelessWidget {
@@ -59,6 +60,7 @@ class ContactView extends StatelessWidget {
                   top: false,
                   minimum: const EdgeInsets.only(bottom: 0),
                   child: ListView.builder(
+                    padding: const EdgeInsets.only(bottom: kDockScrollPadding),
                     itemCount: contacts.length,
                     itemBuilder: (context, index) =>
                         ContactTile(contact: contacts[index]),

@@ -5,6 +5,7 @@ import '../../../logic/chat/chat_cubit.dart';
 import '../../../logic/chat/chat_state.dart';
 import '../../../shared/localization/language_dict.dart';
 import '../../widgets/chat/inbox_tile.dart';
+import '../../widgets/home/floating_dock.dart';
 import 'search_view.dart';
 
 /// Tab danh sách các phòng chat (hộp thư).
@@ -52,6 +53,7 @@ class _ChatListViewState extends State<ChatListView> {
               case ChatStatus.initial:
               case ChatStatus.loaded:
                 return ListView.builder(
+                  padding: const EdgeInsets.only(bottom: kDockScrollPadding),
                   itemCount: state.rooms.length,
                   itemBuilder: (context, index) => _AnimatedItem(
                     room: state.rooms[index],
