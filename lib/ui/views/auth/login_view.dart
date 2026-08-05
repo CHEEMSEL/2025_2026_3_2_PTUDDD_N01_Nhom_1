@@ -66,42 +66,81 @@ class _LoginViewState extends State<LoginView> {
     return BlocListener<AuthCubit, AuthState>(
       listener: _onAuthChanged,
       child: AuthPage(
-        title: t('login'),
         children: [
-          AuthField(
-            label: t('username'),
-            hint: t('input_username'),
-            controller: _usernameController,
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 28),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.surfaceContainerHighest,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  t('login'),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                ),
+                const SizedBox(height: 24),
+                Center(
+                  child: Image.asset(
+                    'lib/assets/app.png',
+                    width: 96,
+                    height: 96,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                const SizedBox(height: 24),
+                AuthField(
+                  label: t('username'),
+                  hint: t('input_username'),
+                  controller: _usernameController,
+                ),
+                const SizedBox(height: 20),
+                AuthField(
+                  label: t('password'),
+                  hint: t('input_password'),
+                  obscure: true,
+                  controller: _passwordController,
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: 20),
-          AuthField(
-            label: t('password'),
-            hint: t('input_password'),
-            obscure: true,
-            controller: _passwordController,
-          ),
-          const SizedBox(height: 20),
-          Row(
-            children: [
-              Expanded(
-                child: BlocBuilder<AuthCubit, AuthState>(
-                  builder: (context, state) {
-                    final loading = state.status == AuthStatus.loading;
-                    return FilledButton(
-                      onPressed: loading ? null : _login,
-                      child: Text(t('login')),
-                    );
-                  },
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+            decoration: BoxDecoration(
+              color: Colors.lightBlueAccent.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: BlocBuilder<AuthCubit, AuthState>(
+                    builder: (context, state) {
+                      final loading = state.status == AuthStatus.loading;
+                      return FilledButton(
+                        onPressed: loading ? null : _login,
+                        child: Text(t('login')),
+                      );
+                    },
+                  ),
                 ),
-              ),
-              const SizedBox(width: 20),
-              Expanded(
-                child: FilledButton.tonal(
-                  onPressed: _openCreateAccount,
-                  child: Text(t('create_account')),
+                const SizedBox(width: 20),
+                Expanded(
+                  child: FilledButton.tonal(
+                    onPressed: _openCreateAccount,
+                    child: Text(t('create_account')),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),
