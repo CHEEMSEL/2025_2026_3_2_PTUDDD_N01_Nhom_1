@@ -35,7 +35,9 @@ class NotificationTile extends StatelessWidget {
       trailing: Icon(Icons.arrow_forward_ios, color: textColor, size: 16),
       onTap: () => Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const NotifDetailView()),
+        MaterialPageRoute(
+          builder: (context) => NotifDetailView(item: item),
+        ),
       ),
     );
   }
