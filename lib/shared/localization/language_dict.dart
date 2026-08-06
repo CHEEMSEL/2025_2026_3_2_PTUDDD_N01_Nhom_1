@@ -35,7 +35,7 @@ class AppTranslations {
       'saved': 'Đã lưu',
       'password': 'Mật khẩu',
       'input_password': 'Nhập mật khẩu tại đây',
-      'create_account': 'Tạo tài khoản',
+      'create_account': 'Đăng ký',
       'main_screen': 'Màn hình chính',
       'messages': 'Tin nhắn',
       'contact': 'Liên hệ',
@@ -581,8 +581,8 @@ class AppTranslations {
   }
 
   static String tr(BuildContext context, String key) {
-    final langCode = Provider.of<LanguageProvider>(context, listen: false)
-        .currentLangCode;
+    final langCode =
+        Provider.of<LanguageProvider>(context, listen: false).currentLangCode;
     return getText(key, langCode);
   }
 }
